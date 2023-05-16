@@ -1,0 +1,11 @@
+<ng-container *ngIf="post">
+    <h1>{{post.title}}</h1>
+    <p>{{post.description}}</p>
+    <p>{{post.category}}</p>
+    <p>{{post.date | date}}</p>
+    <h3>Comments</h3>
+  <ul>
+    <li *ngFor="let comment of comments">{{ comment.text }}</li>
+  </ul>
+    <button (click)="backToHomePage()">Back</button>
+</ng-container>

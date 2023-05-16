@@ -1,0 +1,40 @@
+.post-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.post-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+mat-card {
+    width: calc(33% - 16px);
+    margin-bottom: 16px;
+    background-color: rgb(207, 224, 228);
+}
+
+mat-card-content {
+    max-height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+    margin-bottom: 30px;
+}
+
+mat-card-subtitle {
+    color:rgb(0, 0, 0);
+}
+
+mat-card-actions button {
+    margin: 0 auto;
+    background-color: rgb(13, 100, 231);
+    color: white;
+}
+
+mat-card-actions button:hover {
+    background-color: rgb(188, 215, 255);
+    color: rgb(13, 100, 231);
+}

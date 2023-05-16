@@ -1,0 +1,16 @@
+<nav>
+  <span class="logo">Some logo</span>
+  <!-- http://http://localhost:8080/api/posts/search/by?category=${category} -->
+  <ul class="category-list">
+    <li><a href="#">Travel</a></li>
+    <li><a href="#">Life Style</a></li>
+    <li><a href="#">Pet</a></li>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Hobbies</a></li>
+  </ul>
+  <button (click)="createNewPost()" class="create-button">Create new post</button>
+</nav>
+<div class="search-options">
+  <input class="input-search-class" type="text" [formControl]="" placeholder="Search by Title">
+  <input class="input-search-class" type="text" [formControl]="" placeholder="Search by Description">
+</div>
