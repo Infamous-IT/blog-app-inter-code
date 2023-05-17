@@ -27,25 +27,10 @@ export class PostsComponent implements OnInit {
     return this.posts$;
   }
 
-  getPhotoSrc(photos: any[]): string {
-    if (photos && photos.length > 0) {
-      const photo = photos[0];
-      const base64Image = this.arrayBufferToBase64(photo.data.data);
-      return 'data:' + photo.contentType + ';base64,' + base64Image;
-    }
-    return '';
+  getPhotoSrc(photo: any): string {
+    return this.postService.getPhotoSrc(photo);
   }
-
-  private arrayBufferToBase64(buffer: ArrayBuffer): string {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
-  }
-
+  
   viewDetails(post: any) {
     const postId = post['_id'];
     this.router.navigate(['post', postId]);

@@ -1,11 +1,32 @@
-<ng-container *ngIf="post">
+<ng-container class="container" *ngIf="post">
+  <div class="header">
     <h1>{{post.title}}</h1>
+    <p class="category">{{post.category}}</p>
+
+    <div class="photos" *ngFor="let photo of post.photos">
+      <img mat-card-image [src]="getPhotoSrc(post.photos)" alt="photos">
+    </div>
+  </div>
+  
+  <div class="content">
     <p>{{post.description}}</p>
-    <p>{{post.category}}</p>
+  </div>
+
+  <div class="date">
     <p>{{post.date | date}}</p>
+  </div>
+
+  <div class="comments-container">
     <h3>Comments</h3>
-  <ul>
-    <li *ngFor="let comment of comments">{{ comment.text }}</li>
-  </ul>
-    <button (click)="backToHomePage()">Back</button>
+    <ul>
+      <li class="comment" *ngFor="let comment of comments">{{ comment.text }}</li>
+    </ul>
+  </div>
+  
+  <mat-card-actions>
+    <button mat-button (click)="backToHomePage()">Back</button>
+  </mat-card-actions>
+  <mat-card-actions>
+    <button class="delete-btn" mat-button (click)="deletePost()">Delete post</button>
+  </mat-card-actions>
 </ng-container>

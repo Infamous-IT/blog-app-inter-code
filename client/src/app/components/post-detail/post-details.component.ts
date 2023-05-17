@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { catchError, forkJoin, map, Observable, switchMap, throwError } from 'rxjs';
@@ -14,7 +14,7 @@ import { CommentService } from 'src/app/service/comment.service';
   styleUrls: ['./post-details.component.css']
 })
 export class PostDetailsComponent implements OnInit {
-  post: Post; 
+  @Input() post: Post; 
   comments: Comment[];
 
   constructor(private route: ActivatedRoute, 
@@ -51,6 +51,30 @@ export class PostDetailsComponent implements OnInit {
     return forkJoin([post$, comments$]).pipe(
       map(([post, comments]) => ({ post, comments }))
     );
+  }
+
+  editPost(postId: string): void {
+    this.router.navigate(['/edit-post', postId]);
+  }
+
+  deletePost(): void {
+    const postId = this.route.snapshot.paramMap.get('id');
+    if (postId) {
+      this.postService.deletePost(postId).subscribe(
+        () => {
+          console.log('Post deleted successfully');
+          // Redirect to home page or perform any other necessary actions
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          console.error('Error deleting post:', error);
+        }
+      );
+    }
+  }
+
+  getPhotoSrc(photo: any): string {
+    return this.postService.getPhotoSrc(photo);
   }
 
   backToHomePage() {

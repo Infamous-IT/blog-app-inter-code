@@ -1,0 +1,90 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.category {
+  font-size: 20px;
+  color:rgb(187, 192, 201);
+  font-weight: 700px;
+  font-style: italic;
+}
+
+.content {
+  width: 50%;
+  background-color: #ffffff;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin: 0 auto;
+}
+
+.date {
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.photos {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* .photos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+} */
+
+/* .photos img {
+  width: calc(33% - 10px);
+  margin-bottom: 10px;
+} */
+
+mat-card-actions button {
+  margin: 0 auto;
+  background-color: rgb(13, 100, 231);
+  color: white;
+}
+
+mat-card-actions .delete-btn {
+  background-color: rgb(245, 16, 0);
+  color: rgb(255, 255, 255);
+}
+
+mat-card-actions .delete-btn:hover {
+  background-color: rgb(255, 161, 161);
+  color: rgb(255, 0, 0);
+}
+
+mat-card-actions button:hover {
+  background-color: rgb(188, 215, 255);
+  color: rgb(13, 100, 231);
+}
+
+.comments-container {
+  text-align: center;
+}
+
+.comment {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  list-style-type: none;
+}

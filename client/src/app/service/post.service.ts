@@ -25,6 +25,7 @@ export class PostService {
     return this.http.post<Post>(this.baseUrl, post);
   }
 
+
   updatePost(id: string, post: Post): Observable<Post> {
     return this.http.patch<Post>(`${this.baseUrl}/${id}`, post);
   }
@@ -52,5 +53,24 @@ export class PostService {
       formData.append('photos', files[i]);
     }
     return this.http.post<Post>(`${this.baseUrl}/uploadMultiplePhotos`, formData);
+  }
+
+  getPhotoSrc(photos: any[]): string {
+    if (photos && photos.length > 0) {
+      const photo = photos[0];
+      const base64Image = this.arrayBufferToBase64(photo.data.data);
+      return 'data:' + photo.contentType + ';base64,' + base64Image;
+    }
+    return '';
+  }
+
+  private arrayBufferToBase64(buffer: ArrayBuffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
   }
 }

@@ -1,29 +1,51 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/service/post.service';
 import { Post } from 'src/app/interface/post.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreateComponent {
-  post: Post = {
-    title: '',
-    description: '',
-    category: '',
-    photos: [],
-    date: new Date(), 
-    comments: []
-  };
+export class CreateComponent implements OnInit {
 
-  constructor(private postService: PostService, private router: Router) {}
+  postForm: FormGroup;
+  isUpdating: boolean = false;
+  categories: string[] = ['Life Style', 'Hobbies', 'Home', 'Travel', 'Pet'];
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private postService: PostService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.postForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      category: ['', Validators.required],
+      photos: [[]],
+      date: [new Date()],
+      comments: [[]]
+    });
+  }
 
   savePost(): void {
-    this.postService.createPost(this.post).subscribe(() => {
-      this.router.navigate(['/posts']);
-    });
+    if (this.postForm.valid) {
+      const post: Post = this.postForm.value;
+      this.postService.createPost(post).subscribe(
+        () => {
+          console.log(post);
+          this.router.navigate(['/posts']);
+        },
+        (error) => {
+          console.error('Error creating post:', error);
+        }
+      );
+    }
   }
 
   backToHomePage() {
