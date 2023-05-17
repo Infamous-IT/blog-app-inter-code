@@ -17,7 +17,7 @@ export class CommentService {
   }
 
   getCommentsByPostId(postId: string): Observable<Comment[]> {
-    const url = `${this.baseUrl}?postId=${postId}`;
+    const url = `${this.baseUrl}/post/${postId}`;
     return this.http.get<Comment[]>(url);
   }
 

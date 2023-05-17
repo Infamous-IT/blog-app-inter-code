@@ -20,8 +20,8 @@ export const getComment = async (id) => {
     return await getCommentById(id);
 };
 
-export const getCommentByPostsId = async (id) => {
-    return await getCommentsByPostId(id);
+export const getCommentByPostsId = async (postId) => {
+    return await getCommentsByPostId(postId);
 }
 
 export const createComments = async (postId, commentText) => {

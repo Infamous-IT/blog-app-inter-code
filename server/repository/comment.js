@@ -5,7 +5,7 @@ export const getAllComments = () => {
 }
 
 export const getCommentsByPostId = (postId) => {
-    return Comment.find({postId})
+    return Comment.find({ post: postId });
 }
 
 export const getCommentById = (id) => {

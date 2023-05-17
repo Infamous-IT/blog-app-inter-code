@@ -23,10 +23,10 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-router.get("", async (req, res, next) => {
+router.get("/post/:postId", async (req, res, next) => {
     try {
-        const postId = req.query.postId;
-        const comments = await Comment.find({ postId });
+        const postId = req.params.postId;
+        const comments = await getCommentByPostsId(postId);
         res.status(200).json(comments);
     } catch (error) {
         next(error);
