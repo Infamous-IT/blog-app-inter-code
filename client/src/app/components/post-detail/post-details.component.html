@@ -4,7 +4,7 @@
     <p class="category">{{post.category}}</p>
 
     <div class="photos" *ngFor="let photo of post.photos">
-      <img mat-card-image [src]="getPhotoSrc(post.photos)" alt="photos">
+      <img mat-card-image [src]="getPhotoSrc(photo)" alt="photos">
     </div>
   </div>
   

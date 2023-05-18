@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { distinctUntilChanged, Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, switchMap } from 'rxjs';
 import { Post } from 'src/app/interface/post.interface';
 import { PostService } from '../../service/post.service';
-
 
 @Component({
   selector: 'app-posts',
@@ -13,18 +12,25 @@ import { PostService } from '../../service/post.service';
 export class PostsComponent implements OnInit {
 
   posts$: Observable<Post[]>;
+  category: string;
 
-  constructor(private postService: PostService, private router: Router) {}
+  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit():void {
-    this.posts$ = this.getPosts();
+    this.posts$ = this.route.queryParamMap.pipe(
+      switchMap(params => {
+        const category = params.get('category');
+        return this.getPostsByCategory(category);
+      })
+    );
   }
 
-  getPosts(): Observable<Post[]> {
-    if (!this.posts$) {
-      this.posts$ = this.postService.getPosts().pipe(distinctUntilChanged());
+  getPostsByCategory(category: string): Observable<Post[]> {
+    if (category) {
+      return this.postService.searchPosts(category);
+    } else {
+      return this.postService.getPosts();
     }
-    return this.posts$;
   }
 
   getPhotoSrc(photo: any): string {
