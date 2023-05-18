@@ -14,7 +14,7 @@ import { CommentService } from 'src/app/service/comment.service';
   styleUrls: ['./post-details.component.css']
 })
 export class PostDetailsComponent implements OnInit {
-  post: Post; 
+  @Input() post: Post; 
   comments: Comment[];
 
   constructor(private route: ActivatedRoute, 
@@ -63,6 +63,7 @@ export class PostDetailsComponent implements OnInit {
       this.postService.deletePost(postId).subscribe(
         () => {
           console.log('Post deleted successfully');
+          // Redirect to home page or perform any other necessary actions
           this.router.navigate(['/']);
         },
         (error) => {
