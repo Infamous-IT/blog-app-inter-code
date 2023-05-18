@@ -1,7 +1,6 @@
 .post-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
   }
   
   .post-header-image {
@@ -11,8 +10,11 @@
   
   mat-card {
     width: calc(33% - 16px);
-    margin-bottom: 16px;
-    background-color: rgb(207, 224, 228);
+    margin-bottom: 25px;
+    margin-right: 10px;
+    margin-left: 5px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px;
   }
   
   .photos {

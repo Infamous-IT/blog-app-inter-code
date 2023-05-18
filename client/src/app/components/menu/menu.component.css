@@ -4,13 +4,8 @@ nav {
     justify-content: space-between;
     flex-direction: row;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #ececec;
 }
-
-/* .logo {
-    font-size: 20px;
-    font-weight: bold;
-} */
 
 .logo img {
     height: 50px;

@@ -20,12 +20,6 @@ export const removePost = (id) => {
     return Post.findByIdAndDelete(id);
 }
 
-// export const searchByTitle = (title) => {
-//     const searchQuery = new RegExp(title, 'i');
-//     return Post.find({ title: { $regex: searchQuery } });
-// };
-
-
 export const searchPosts = (query) => {
     const {title, description, category} = query;
     const searchQuery = {};
