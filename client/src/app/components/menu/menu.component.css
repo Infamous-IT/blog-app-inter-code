@@ -7,9 +7,14 @@ nav {
     background-color: #f0f0f0;
 }
 
-.logo {
+/* .logo {
     font-size: 20px;
     font-weight: bold;
+} */
+
+.logo img {
+    height: 50px;
+    width: 50px;
 }
 
 .category-list {
@@ -82,4 +87,14 @@ nav {
 .input-search-class {
     margin: 5px;
     border-color: #007bff; 
+}
+
+li {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+li.active {
+    font-weight: bold;
+    border-bottom: 2px solid blue;
 }

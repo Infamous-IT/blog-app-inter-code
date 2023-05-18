@@ -34,8 +34,13 @@ export class PostService {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 
-  searchPosts(query: any): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.baseUrl}/search/by`, { params: query });
+  // searchPosts(query: any): Observable<Post[]> {
+  //   return this.http.get<Post[]>(`${this.baseUrl}/search/by`, { params: query });
+  // }
+
+  searchPosts(category: string): Observable<Post[]> {
+    const params = { category };
+    return this.http.get<Post[]>(`${this.baseUrl}/search/by`, { params });
   }
 
   sortByCreationDate(sortOrder: string): Observable<Post[]> {
