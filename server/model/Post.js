@@ -15,11 +15,6 @@ const postSchema = new mongoose.Schema(
             minLength: 10,
             maxLength: 5000
         },
-        // photos: [{
-        //     data: Buffer,
-        //     contentType: String,
-        //     path: String
-        // }],
         photos: [{
             data: {
                 type: Buffer,
