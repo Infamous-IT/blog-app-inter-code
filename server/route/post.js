@@ -8,15 +8,16 @@ import {
     updatePostById,
     createPosts,
     searchPost,
-    // searchByPostsTitle,
     sortPostsByCreationDate,
     sortPostsByDateRangePicker,
     uploadMultiplePhoto
 } from '../service/post.js';
 
 const router = express.Router();
-const storage = multer.memoryStorage();
-const upload = multer({storage: storage});
+const upload = multer({
+    storage: multer.memoryStorage(),
+});
+
 
 router.get("/", async (req, res, next) => {
     try {
@@ -82,16 +83,6 @@ router.get("/search/by", async (req, res, next) => {
         next(error);
     }
 });
-
-// router.get("/search/by_title", async (req, res, next) => {
-//     try {
-//         const {title} = req.query;
-//         const posts = await searchByPostsTitle(title);
-//         res.status(200).json(posts);
-//     } catch (error) {
-//         next(error);
-//     }
-// });
 
 router.get("/sort/by_creation_date", async (req, res, next) => {
     try {

@@ -34,9 +34,10 @@ export class PostsComponent implements OnInit {
   }
 
   getPhotoSrc(photo: any): string {
+    console.log(photo)
     return this.postService.getPhotoSrc(photo);
   }
-  
+
   viewDetails(post: any) {
     const postId = post['_id'];
     this.router.navigate(['post', postId]);

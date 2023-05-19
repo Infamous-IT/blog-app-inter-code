@@ -21,7 +21,8 @@ export const getComment = async (id) => {
 };
 
 export const getCommentByPostsId = async (postId) => {
-    return await getCommentsByPostId(postId);
+    const comments = await getAllComments();
+    return comments.filter(comment => comment.post === postId);
 }
 
 export const createComments = async (postId, commentText) => {

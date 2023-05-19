@@ -14,10 +14,12 @@ import { CommentService } from 'src/app/service/comment.service';
   styleUrls: ['./post-details.component.css']
 })
 export class PostDetailsComponent implements OnInit {
-  post: Post; 
-  comments: Comment[];
+  post: Post;
+  // comments: Comment[];
+  // comments: { [commentId: string]: Comment } = {};
+  comments: Comment[] = [];
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
     private postService: PostService,
     private commentService: CommentService,
     private router: Router) {}
@@ -47,10 +49,14 @@ export class PostDetailsComponent implements OnInit {
   loadPostDetails(postId: string): Observable<{ post: Post; comments: Comment[] }> {
     const post$ = this.postService.getPostById(postId);
     const comments$ = this.commentService.getCommentsByPostId(postId);
-    
+
     return forkJoin([post$, comments$]).pipe(
       map(([post, comments]) => ({ post, comments }))
     );
+  }
+
+  isCommentForPost(comment: Comment): boolean {
+    return comment && comment.post.id === this.post.id;
   }
 
   editPost(postId: string): void {
@@ -72,7 +78,8 @@ export class PostDetailsComponent implements OnInit {
     }
   }
 
-  getPhotoSrc(photo: any): string {
+  getPhotoSrc(photo: any[]): string {
+    console.log(photo)
     return this.postService.getPhotoSrc(photo);
   }
 

@@ -4,9 +4,10 @@ export const getAllComments = () => {
     return Comment.find();
 }
 
-export const getCommentsByPostId = (postId) => {
-    return Comment.find({ post: postId });
-}
+export const getCommentsByPostId = async (postId) => {
+    const comments = await Comment.find({ post: postId }).exec();
+    return comments;
+};
 
 export const getCommentById = (id) => {
     return Comment.findById(id);

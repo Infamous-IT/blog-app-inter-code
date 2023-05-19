@@ -5,11 +5,11 @@ import {
     updatePost,
     createPost,
     searchPosts,
-    // searchByTitle,
     sortByCreationDate,
     sortByDateRangePicker,
     uploadMultiplePhotos
 } from '../repository/post.js';
+
 
 export const getAll = async () => {
     return await getAllPosts();
@@ -35,10 +35,6 @@ export const removePostById = async (id) => {
 export const searchPost = async (query) => {
     return await searchPosts(query);
 }
-
-// export const searchByPostsTitle = async (title) => {
-//     return await searchByTitle(title);
-// }
 
 export const sortPostsByCreationDate = async (sortOrder) => {
     return await sortByCreationDate(sortOrder);

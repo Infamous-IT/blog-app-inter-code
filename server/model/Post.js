@@ -22,11 +22,9 @@ const postSchema = new mongoose.Schema(
             },
             contentType: {
                 type: String,
-                required: true
             },
             path: {
                 type: String,
-                required: true
             }
         }],
         category: {

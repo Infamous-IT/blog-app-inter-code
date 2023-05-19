@@ -9,7 +9,7 @@ import {
     sortCommentsByCreationDate
 } from '../service/comment.js';
 import {
-    getPost,
+    getPost, updatePostById,
 } from '../service/post.js'
 
 const router = express.Router();
@@ -75,11 +75,11 @@ router.get("/:id", async (req, res, next) => {
 router.post("/:postId", async (req, res, next) => {
     try {
         const {postId} = req.params;
-        const body = req.body;
+        const body = req.body.text;
         if(!body?.text) {
             throw new Error("Text cannot be empty!");
         }
-        const result = await createComments(postId, body.text);
+        const result = await createComments(postId, body);
         res.status(200).json(result)
     } catch (error) {
         next(error);
