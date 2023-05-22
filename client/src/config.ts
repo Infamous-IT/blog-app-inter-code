@@ -1,0 +1,1 @@
+export const URL_FOR_PHOTO = 'http://localhost:8080';

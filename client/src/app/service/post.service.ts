@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Post } from '../interface/post.interface';
+import { URL_FOR_PHOTO } from '../../config';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,10 @@ export class PostService {
         return post;
       })
     );
+  }
+
+  getPhotoSrc(photo: any): string {
+    return photo?.url ? URL_FOR_PHOTO + photo.url : '';
   }
 
   createPost(post: Post): Observable<Post> {
@@ -62,9 +67,5 @@ export class PostService {
       formData.append('photos', files[i]);
     }
     return this.http.post<Post>(`${this.baseUrl}/${postId}/upload_photos`, formData);
-  }
-
-  getPhotoSrc(photo: any): string {
-    return photo?.url ? 'http://localhost:8080' + photo.url : '';
   }
 }

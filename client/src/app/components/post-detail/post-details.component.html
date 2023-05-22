@@ -5,6 +5,7 @@
 
     <div class="photos" *ngFor="let photo of post.photos">
       <img mat-card-image [src]="getPhotoSrc(photo)" alt="photos">
+      {{ getPhotoSrc(photo) }}
     </div>
   </div>
 

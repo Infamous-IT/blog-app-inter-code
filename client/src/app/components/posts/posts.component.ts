@@ -17,6 +17,7 @@ export class PostsComponent  {
       return this.getPostsByCategory(category);
     })
   );
+  
   category: string;
 
   constructor(private postService: PostService, private router: Router, private route: ActivatedRoute) {}
