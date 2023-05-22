@@ -9,6 +9,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './components/posts/posts.component';
@@ -18,6 +20,7 @@ import { CreateComponent } from './components/create/create.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostService } from './service/post.service';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { PostService } from './service/post.service';
     MatListModule,
     MatIconModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    DragDropModule
   ],
   providers: [PostService],
   bootstrap: [AppComponent]

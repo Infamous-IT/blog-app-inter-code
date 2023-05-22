@@ -60,12 +60,37 @@ export class PostService {
     return this.http.get<Post[]>(`${this.baseUrl}/sort/by_date_range_picker?startDate=${startDate}&endDate=${endDate}`);
   }
 
-  uploadMultiplePhotos(postId: string, files: File[]): Observable<Post> {
+  // uploadMultiplePhotos(postId: string, files: File[]): Observable<Post> {
+  //   const formData = new FormData();
+  //   formData.append('postId', postId);
+  //   for (let i = 0; i < files.length; i++) {
+  //     formData.append('photos', files[i]);
+  //   }
+  //   return this.http.post<Post>(`${this.baseUrl}/${postId}/upload_photos`, formData);
+  // }
+
+  createPostWithPhoto(postData: any, files: File[]): Observable<Post> {
     const formData = new FormData();
-    formData.append('postId', postId);
+    formData.append('title', postData.title);
+    formData.append('description', postData.description);
+    formData.append('category', postData.category);
+    formData.append('date', postData.date.toISOString());
+
     for (let i = 0; i < files.length; i++) {
       formData.append('photos', files[i]);
     }
+
+    return this.http.post<Post>(this.baseUrl, formData);
+  }
+
+  uploadMultiplePhotos(postId: string, files: File[]): Observable<Post> {
+    const formData = new FormData();
+    formData.append('postId', postId);
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append('photos', files[i]);
+    }
+
     return this.http.post<Post>(`${this.baseUrl}/${postId}/upload_photos`, formData);
   }
 }
