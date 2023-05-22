@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Post } from '../interface/post.interface';
 
 @Injectable({
@@ -18,13 +18,21 @@ export class PostService {
 
   getPostById(id: string): Observable<Post> {
     const url = `${this.baseUrl}/${id}`;
-    return this.http.get<Post>(url);
+    return this.http.get<Post>(url).pipe(
+      map((post: Post) => {
+        if (post.photos && post.photos.length > 0) {
+          post.photos.forEach((photo) => {
+            photo.url = this.getPhotoSrc(photo);
+          });
+        }
+        return post;
+      })
+    );
   }
 
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(this.baseUrl, post);
   }
-
 
   updatePost(id: string, post: Post): Observable<Post> {
     return this.http.patch<Post>(`${this.baseUrl}/${id}`, post);
@@ -40,11 +48,11 @@ export class PostService {
   }
 
   sortByCreationDate(sortOrder: string): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.baseUrl}/sortByCreationDate?sortOrder=${sortOrder}`);
+    return this.http.get<Post[]>(`${this.baseUrl}/sort/by_creation_date?sortOrder=${sortOrder}`);
   }
 
   sortByDateRangePicker(startDate: Date, endDate: Date): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.baseUrl}/sortByDateRangePicker?startDate=${startDate}&endDate=${endDate}`);
+    return this.http.get<Post[]>(`${this.baseUrl}/sort/by_date_range_picker?startDate=${startDate}&endDate=${endDate}`);
   }
 
   uploadMultiplePhotos(postId: string, files: File[]): Observable<Post> {
@@ -53,25 +61,10 @@ export class PostService {
     for (let i = 0; i < files.length; i++) {
       formData.append('photos', files[i]);
     }
-    return this.http.post<Post>(`${this.baseUrl}/uploadMultiplePhotos`, formData);
+    return this.http.post<Post>(`${this.baseUrl}/${postId}/upload_photos`, formData);
   }
 
-  getPhotoSrc(photos: any[]): string {
-    if (photos && photos.length > 0) {
-      const photo = photos[0];
-      const base64Image = this.arrayBufferToBase64(photo.data.data);
-      return 'data:' + photo.contentType + ';base64,' + base64Image;
-    }
-    return '';
-  }
-
-  private arrayBufferToBase64(buffer: ArrayBuffer): string {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
+  getPhotoSrc(photo: any): string {
+    return photo?.url ? 'http://localhost:8080' + photo.url : '';
   }
 }

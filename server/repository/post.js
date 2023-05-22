@@ -49,12 +49,17 @@ export const sortByDateRangePicker = (startDate, endDate) => {
     return Post.find({date: { $gte: startDate, $lte: endDate }});
 }
 
-export const uploadMultiplePhotos = async (postId, files) => {
+export const uploadMultiplePhotos = (postId, files) => {
     const photos = files.map((file) => {
         return {
-            data: file.buffer,
-            contentType: file.mimeType
+            url: `/assets/images/${file.filename}`,
+            contentType: file.mimetype,
+            path: file.path,
         };
     });
-    return await Post.findByIdAndUpdate(postId, {$push: {photos: {$each: photos}}}, {new: true});
+    return Post.findByIdAndUpdate(
+        postId,
+        {$push: {photos: {$each: photos}}},
+        {new: true}
+    );
 };

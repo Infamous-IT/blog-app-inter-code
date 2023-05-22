@@ -15,8 +15,6 @@ import { CommentService } from 'src/app/service/comment.service';
 })
 export class PostDetailsComponent implements OnInit {
   post: Post;
-  // comments: Comment[];
-  // comments: { [commentId: string]: Comment } = {};
   comments: Comment[] = [];
 
   constructor(private route: ActivatedRoute,
@@ -78,8 +76,7 @@ export class PostDetailsComponent implements OnInit {
     }
   }
 
-  getPhotoSrc(photo: any[]): string {
-    console.log(photo)
+  getPhotoSrc(photo: any ): string {
     return this.postService.getPhotoSrc(photo);
   }
 

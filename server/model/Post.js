@@ -15,18 +15,19 @@ const postSchema = new mongoose.Schema(
             minLength: 10,
             maxLength: 5000
         },
-        photos: [{
-            data: {
-                type: Buffer,
-                required: true
+        photos: [
+            {
+                url: {
+                    type: String,
+                },
+                contentType: {
+                    type: String,
+                },
+                path: {
+                    type: String,
+                },
             },
-            contentType: {
-                type: String,
-            },
-            path: {
-                type: String,
-            }
-        }],
+        ],
         category: {
             type: String,
             enum: Object.values(categories),
