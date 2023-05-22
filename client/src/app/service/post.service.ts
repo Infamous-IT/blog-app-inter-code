@@ -15,7 +15,7 @@ export class PostService {
 
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.baseUrl);
-  }
+  } 
 
   getPostById(id: string): Observable<Post> {
     const url = `${this.baseUrl}/${id}`;
@@ -23,7 +23,7 @@ export class PostService {
       map((post: Post) => {
         if (post.photos && post.photos.length > 0) {
           post.photos.forEach((photo) => {
-            photo.url = this.getPhotoSrc(photo);
+            photo.src = this.getPhotoSrc(photo.url);
           });
         }
         return post;

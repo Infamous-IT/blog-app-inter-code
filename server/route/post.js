@@ -6,7 +6,6 @@ import {
     getPost,
     removePostById,
     updatePostById,
-    createPosts,
     createPostWithPhotos,
     searchPost,
     sortPostsByCreationDate,
@@ -49,6 +48,7 @@ router.patch("/:id", async (req, res, next) => {
         next(error);
     }
 });
+
 
 router.delete("/:id", async (req, res, next) => {
     try {
@@ -121,7 +121,7 @@ router.get("/:id", async (req, res, next) => {
             ...post.toObject(),
             photos: post.photos.map((photo) => ({
                 ...photo.toObject(),
-                url: `/assets/images/${photo._id}`,
+                url: `${photo.url}`,
             })),
         };
 

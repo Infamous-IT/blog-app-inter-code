@@ -81,6 +81,11 @@ mat-card-actions button:hover {
   text-align: center;
 }
 
+.image-photo {
+  width: 600px;
+  height: 400px;
+}
+
 .comment {
   border: 1px solid #ccc;
   border-radius: 5px;
