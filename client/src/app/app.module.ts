@@ -20,6 +20,8 @@ import { CreateComponent } from './components/create/create.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostService } from './service/post.service';
+import { DragAndDropDirective } from './directive/drag-and-drop.directive';
+import { ProgressComponent } from './components/progress/progress.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { PostService } from './service/post.service';
     PostsComponent,
     MenuComponent,
     PostDetailsComponent,
-    CreateComponent
+    CreateComponent,
+    DragAndDropDirective,
+    ProgressComponent
   ],
   imports: [
     BrowserModule,

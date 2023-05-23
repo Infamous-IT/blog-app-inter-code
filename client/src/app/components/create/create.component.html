@@ -1,30 +1,44 @@
 <ng-container class="container">
-    <form [formGroup]="postForm" (ngSubmit)="savePost()">
-      <div>
-        <label for="title">Title:</label>
-        <input type="text" id="title" formControlName="title" required>
+  <form [formGroup]="postForm" (ngSubmit)="savePost()">
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" formControlName="title" required>
+    </div>
+    <div>
+      <label for="description">Content:</label>
+      <textarea id="description" formControlName="description" required></textarea>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Category:</mat-label>
+        <mat-select formControlName="category" required>
+          <mat-option *ngFor="let c of categories" [value]="c">{{ c }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="dropzone_container" appDragAndDrop (fileDropped)="onFileDropped($event)">
+      <input class="input_upload_file" type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event)" />
+      <img src="../../../assets/ic-upload-file.svg" alt="">
+      <h3 class="h3_upload_file">Drag and drop file here</h3>
+      <h3 class="h3_upload_file">or</h3>
+      <label class="label_upload_file" for="fileDropRef">Browse for file</label>
+    </div>
+    <div class="files-list">
+      <div class="single-file" *ngFor="let file of files; let i = index">
+        <mat-icon>description</mat-icon>
+        <div class="info">
+          <h4 class="name">
+            {{ file.name  }}
+          </h4>
+          <app-progress [progress]="file?.progress"></app-progress>
+        </div>
       </div>
-      <div>
-        <label for="description">Content:</label>
-        <textarea id="description" formControlName="description" required></textarea>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>Category:</mat-label>
-          <mat-select formControlName="category" required>
-            <mat-option *ngFor="let c of categories" [value]="c">{{ c }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <!-- <div>
-        <label for="photos">Photos:</label>
-        <input type="file" id="photos" name="photos" (change)="uploadPhoto()" multiple>
-      </div> -->
-      <mat-card-actions>
-        <button type="submit" mat-button>Save Post</button>
-      </mat-card-actions>
-    </form>
+    </div>
     <mat-card-actions>
-      <button mat-button (click)="backToHomePage()">Back</button>
-    </mat-card-actions>    
-  </ng-container>
+      <button type="submit" mat-button>Save Post</button>
+    </mat-card-actions>
+  </form>
+  <mat-card-actions>
+    <button mat-button (click)="backToHomePage()">Back</button>
+  </mat-card-actions>    
+</ng-container>

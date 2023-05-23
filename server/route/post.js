@@ -58,15 +58,14 @@ router.delete("/:id", async (req, res, next) => {
         next(error);
     }
 });
+// if (req.photos.length > 10) {
+        //     return res
+        //         .status(400)
+        //         .json({ message: "Maximum number of photos allowed is 10" });
+        // }
 
 router.post("/", upload.array("photos", 10), async (req, res, next) => {
     try {
-        if (req.files.length > 10) {
-            return res
-                .status(400)
-                .json({ message: "Maximum number of photos allowed is 10" });
-        }
-
         const uploadedPhotos = req.files.map(({filename, mimetype, path}) => ({
             url: `/assets/images/${filename}`,
             contentType: mimetype,
@@ -122,6 +121,10 @@ router.get("/:id", async (req, res, next) => {
             photos: post.photos.map((photo) => ({
                 ...photo.toObject(),
                 url: `${photo.url}`,
+            })),
+            comments: post.comments.map((comment) => ({
+                ...comment.toObject(),
+                text: `${comment.text}`
             })),
         };
 

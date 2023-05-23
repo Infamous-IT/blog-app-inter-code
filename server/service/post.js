@@ -54,7 +54,3 @@ export const sortPostsByDateRangePicker = async (startDate, endDate) => {
 export const uploadMultiplePhoto = async (postId, files) => {
     return await uploadMultiplePhotos(postId, files);
 };
-
-// export const uploadMultiplePhoto = async (postId, files) => {
-//     return await uploadMultiplePhotos(postId, files);
-// }
