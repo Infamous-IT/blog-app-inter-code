@@ -37,6 +37,17 @@ export class CreateComponent implements OnInit {
   }
 
   onFileDropped($event) {
+    const files = $event;
+
+    this.postForm.patchValue({ photos: files });
+
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        this.files.push((e.target as FileReader).result as string);
+      };
+      reader.readAsDataURL(files[i]);
+    }
     this.prepareFilesList($event);
   }
 
@@ -91,4 +102,3 @@ export class CreateComponent implements OnInit {
     this.router.navigate(['/']);
   }
 }
-

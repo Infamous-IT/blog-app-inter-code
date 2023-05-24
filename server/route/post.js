@@ -18,10 +18,10 @@ const upload = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
             //when i use my MacBook
-            // cb(null, "/Users/nazar_hlukhaniuk/documents/projects/blog-app-inter-code/server/assets/images");
+            cb(null, "/Users/nazar_hlukhaniuk/documents/projects/blog-app-inter-code/server/assets/images");
 
             //when i use my PC
-            cb(null, "E:/DevProj/blog-app-inter-code/server/assets/images");
+            // cb(null, "E:/DevProj/blog-app-inter-code/server/assets/images");
         },
         filename: function (req, file, cb) {
             const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
