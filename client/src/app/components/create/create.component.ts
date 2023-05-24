@@ -13,7 +13,7 @@ export class CreateComponent implements OnInit {
 
   @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
   files: any[] = [];
-  
+
   postForm: FormGroup;
   isUpdating: boolean = false;
   categories: string[] = ['Life Style', 'Hobbies', 'Home', 'Travel', 'Pet'];
@@ -44,7 +44,7 @@ export class CreateComponent implements OnInit {
     const target = $event.target as HTMLInputElement;
     const files = target.files as FileList;
     this.postForm.patchValue({ photos: Array.from(files) });
-  
+
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
       const reader = new FileReader();
@@ -58,7 +58,7 @@ export class CreateComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
-  
+
     this.fileDropEl.nativeElement.value = "";
   }
 
@@ -74,7 +74,7 @@ export class CreateComponent implements OnInit {
     if (this.postForm.valid) {
       const post: Post = this.postForm.value;
       const files: File[] = this.postForm.get('photos').value;
-  
+
       this.postService.createPostWithPhoto(post, files).subscribe(
         () => {
           console.log('Post and photos created successfully');
