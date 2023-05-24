@@ -73,12 +73,6 @@ nav {
     background-color: rgb(212, 231, 251);
 }
 
-.search-options {
-    display: flex;
-    justify-content: center;
-    margin: 10px 10px;
-}
-
 .input-search-class {
     margin: 5px;
     border-color: #007bff; 

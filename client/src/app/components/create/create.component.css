@@ -60,7 +60,7 @@ mat-card-actions button:hover {
     text-align: center;
     border: dashed 1px #979797;
     position: relative;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
 .input_upload_file {
@@ -74,21 +74,25 @@ mat-card-actions button:hover {
 }
 
 .label_upload_file {
-    color: white;
-    width: 183px;
-    height: 44px;
-    font-size: 18px;
-    border-radius: 21.5px;
-    background-color: #db202f;
-    padding: 8px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: 183px;
+  margin: 0 auto; 
+  height: 44px;
+  font-size: 18px;
+  border-radius: 21.5px;
+  background-color: #db202f;
+  padding: 8px 16px;
 }
 
 .h3_upload_file {
-    font-size: 20px;
-    font-weight: 600;
-    color: #38424c;
-    margin-bottom: 5px;
-    margin: 0 auto;
+  font-size: 20px;
+  font-weight: 600;
+  color: #38424c;
+  margin-bottom: 5px;
+  margin: 12px auto;
 }
 
 @keyframes shake {

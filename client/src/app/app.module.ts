@@ -10,7 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './components/posts/posts.component';
@@ -22,7 +23,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostService } from './service/post.service';
 import { DragAndDropDirective } from './directive/drag-and-drop.directive';
 import { ProgressComponent } from './components/progress/progress.component';
-
 
 @NgModule({
   declarations: [
@@ -47,7 +47,9 @@ import { ProgressComponent } from './components/progress/progress.component';
     MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
-    DragDropModule
+    DragDropModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   providers: [PostService],
   bootstrap: [AppComponent]

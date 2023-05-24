@@ -1,41 +1,106 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { Post } from 'src/app/interface/post.interface';
 import { PostService } from '../../service/post.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
-export class PostsComponent  {
+export class PostsComponent implements OnInit, OnDestroy {
 
-  posts$: Observable<Post[]> = this.route.queryParamMap.pipe(
-    switchMap(params => {
-      const category = params.get('category');
-      return this.getPostsByCategory(category);
-    })
-  );
-  
-  category: string;
+  filteredPosts: Post[] = [];
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
+  titleControl = new FormControl();
+  descriptionControl = new FormControl();
+  searchSubscription: Subscription;
 
   constructor(private postService: PostService, private router: Router, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.searchSubscription = this.titleControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(value => {
+      this.performSearch(value, 'title');
+    });
+
+    this.descriptionControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(value => {
+      this.performSearch(value, 'description');
+    });
+
+    this.route.queryParamMap.pipe(
+      switchMap(params => {
+        const category = params.get('category');
+        return this.getPostsByCategory(category);
+      })
+    ).subscribe(posts => {
+      this.filteredPosts = posts;
+    });
+  }
+
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe();
+  }
 
   getPostsByCategory(category: string): Observable<Post[]> {
     if (category) {
       return this.postService.searchPosts(category);
     } else {
-      return this.postService.getPosts()
+      return this.postService.getPosts();
     }
   }
 
-  getPhotoSrc(photo: any ): string {
+  getPhotoSrc(photo: any): string {
     return this.postService.getPhotoSrc(photo);
   }
 
   viewDetails(post: any) {
     const postId = post['_id'];
     this.router.navigate(['post', postId]);
+  }
+
+  performSearch(value: string, searchBy: 'title' | 'description') {
+    let title: string = '';
+    let description: string = '';
+  
+    if (searchBy === 'title') {
+      title = value;
+    } else if (searchBy === 'description') {
+      description = value;
+    }
+  
+    if (value.trim() === '') {
+      this.getPostsByCategory(null).subscribe(posts => {
+        this.handleSearchResults(posts);
+        console.log(posts);
+      }, error => {
+        console.error(error);
+      });
+    } else {
+      this.postService.searchPostsByTitleOrDescription(title, description).subscribe(posts => {
+        this.handleSearchResults(posts);
+        console.log(posts);
+      }, error => {
+        console.error(error);
+      });
+    }
+}
+
+  handleSearchResults(posts: Post[]) {
+    this.filteredPosts = posts;
+    console.log(this.filteredPosts);
   }
 }

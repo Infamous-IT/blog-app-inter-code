@@ -1,5 +1,10 @@
+<div class="search-options">
+  <input class="input-search-class" type="text" [formControl]="titleControl" (input)="performSearch(titleControl.value, 'title')" placeholder="Search by Title">
+  <input class="input-search-class" type="text" [formControl]="descriptionControl" (input)="performSearch(descriptionControl.value, 'description')" placeholder="Search by Description">
+</div>
+
 <div class="post-list">
-  <mat-card *ngFor="let post of posts$ | async">
+  <mat-card *ngFor="let post of filteredPosts">
     <mat-card-header>
       <div mat-card-avatar class="post-header-image"></div>
       <mat-card-title>{{ post.title }}</mat-card-title>

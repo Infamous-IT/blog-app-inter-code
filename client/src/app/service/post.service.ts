@@ -52,6 +52,11 @@ export class PostService {
     return this.http.get<Post[]>(`${this.baseUrl}/search/by`, { params });
   }
 
+  searchPostsByTitleOrDescription(title: string, description: string): Observable<Post[]> {
+    const params = { title, description };
+    return this.http.get<Post[]>(`${this.baseUrl}/search/by`, { params });
+  }
+
   sortByCreationDate(sortOrder: string): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.baseUrl}/sort/by_creation_date?sortOrder=${sortOrder}`);
   }

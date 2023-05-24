@@ -53,3 +53,29 @@
     color: rgb(13, 100, 231);
   }
   
+  .search-options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px;
+}
+  
+  .input-search-class {
+    margin-right: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+  }
+  
+  .mat-form-field {
+    margin-right: 10px;
+    background-color: rgb(255, 0, 0);
+  }
+  
+  .mat-datepicker-toggle {
+    color: #f1dede;
+  }
+  
