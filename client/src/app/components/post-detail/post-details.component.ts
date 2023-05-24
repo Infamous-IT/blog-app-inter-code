@@ -15,6 +15,7 @@ import { CommentService } from 'src/app/service/comment.service';
 })
 export class PostDetailsComponent implements OnInit {
   post: Post;
+  postId: string;
   comments: Comment[] = [];
 
   constructor(private route: ActivatedRoute,
@@ -26,9 +27,9 @@ export class PostDetailsComponent implements OnInit {
     this.route.paramMap
       .pipe(
         switchMap(params => {
-          const postId = params.get('id');
-          if (postId) {
-            return this.loadPostDetails(postId);
+          this.postId = params.get('id');
+          if (this.postId) {
+            return this.loadPostDetails(this.postId);
           } else {
             return throwError('Post ID not found');
           }
@@ -57,8 +58,8 @@ export class PostDetailsComponent implements OnInit {
     return comment && comment.post.id === this.post.id;
   }
 
-  editPost(postId: string): void {
-    this.router.navigate(['/edit-post', postId]);
+  editPost(): void {
+    this.router.navigate([`posts/update`, this.postId]);
   }
 
   deletePost(): void {
