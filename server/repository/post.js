@@ -1,7 +1,21 @@
 import Post from '../model/Post.js';
 
-export const getAllPosts = () => {
-    return Post.find();
+// export const getAllPosts = () => {
+//     return Post.find();
+// }
+
+// for pagination
+export const getAllPosts = (offset, limit) => {
+    return Post.find().skip(offset).limit(limit);
+}
+
+export const getTotalCount = () => {
+    try {
+        const count = Post.countDocuments();
+        return count;
+    } catch (error) {
+        throw new Error('Error retrieving total count');
+    }
 }
 
 export const getPostById = (id) => {

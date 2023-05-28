@@ -10,7 +10,8 @@ import {
     searchPost,
     sortPostsByCreationDate,
     sortPostsByDateRangePicker,
-    uploadMultiplePhoto
+    uploadMultiplePhoto,
+    getPostTotalCount
 } from '../service/post.js';
 
 const router = express.Router();
@@ -18,10 +19,10 @@ const upload = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
             //when i use my MacBook
-            cb(null, "/Users/nazar_hlukhaniuk/documents/projects/blog-app-inter-code/server/assets/images");
+            // cb(null, "/Users/nazar_hlukhaniuk/documents/projects/blog-app-inter-code/server/assets/images");
 
             //when i use my PC
-            // cb(null, "E:/DevProj/blog-app-inter-code/server/assets/images");
+            cb(null, "E:/DevProj/blog-app-inter-code/server/assets/images");
         },
         filename: function (req, file, cb) {
             const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -32,14 +33,28 @@ const upload = multer({
 });
 
 
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
-        const result = await getAll();
-        res.status(200).json(result);
+        const offset = parseInt(req.query.offset) || 0;
+        const limit = parseInt(req.query.limit) || 6;
+        const [posts, total] = await Promise.all([
+            getAll(offset, limit),
+            getPostTotalCount()
+        ]);
+        res.status(200).json({ posts, total });
     } catch (error) {
         next(error);
     }
 });
+
+// router.get("/", async (req, res, next) => {
+//     try {
+//         const result = await getAll();
+//         res.status(200).json(result);
+//     } catch (error) {
+//         next(error);
+//     }
+// });
 
 router.patch("/:id", async (req, res, next) => {
     try {
