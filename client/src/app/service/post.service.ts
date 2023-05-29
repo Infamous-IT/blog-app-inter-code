@@ -15,7 +15,7 @@ export class PostService {
 
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.baseUrl);
-  } 
+  }
 
   getPostById(id: string): Observable<Post> {
     const url = `${this.baseUrl}/${id}`;
@@ -61,8 +61,17 @@ export class PostService {
     return this.http.get<Post[]>(`${this.baseUrl}/sort/by_creation_date?sortOrder=${sortOrder}`);
   }
 
+  // sortByDateRangePicker(startDate: Date, endDate: Date): Observable<Post[]> {
+  //   return this.http.get<Post[]>(`${this.baseUrl}/sort/by_date_range_picker?startDate=${startDate}&endDate=${endDate}`);
+  // }
+
   sortByDateRangePicker(startDate: Date, endDate: Date): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.baseUrl}/sort/by_date_range_picker?startDate=${startDate}&endDate=${endDate}`);
+    return this.http.get<Post[]>(`${this.baseUrl}/sort/by_date_range_picker`, {
+      params: {
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString()
+      }
+    })
   }
 
   createPostWithPhoto(postData: any, files: File[]): Observable<Post> {
@@ -76,7 +85,7 @@ export class PostService {
       formData.append('photos', files[i]);
     }
     console.log(formData);
-    
+
 
     return this.http.post<Post>(this.baseUrl, formData);
   }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/interface/post.interface';
 import { PostService } from '../../service/post.service';
@@ -25,7 +24,6 @@ export class MenuComponent implements OnInit {
       this.category = params['category'] || null;
     });
   }
-
 
   filterPostsByCategory(category: string) {
     this.category = category;

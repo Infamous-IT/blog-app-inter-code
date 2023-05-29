@@ -1,13 +1,13 @@
 import Post from '../model/Post.js';
 
-// export const getAllPosts = () => {
-//     return Post.find();
-// }
+export const getAllPosts = () => {
+    return Post.find();
+}
 
 // for pagination
-export const getAllPosts = (offset, limit) => {
-    return Post.find().skip(offset).limit(limit);
-}
+// export const getAllPosts = (offset, limit) => {
+//     return Post.find().skip(offset).limit(limit);
+// }
 
 export const getTotalCount = () => {
     try {

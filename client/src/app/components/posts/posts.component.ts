@@ -7,6 +7,7 @@ import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operato
 import { Post } from 'src/app/interface/post.interface';
 import { PostService } from '../../service/post.service';
 import { Observable } from 'rxjs';
+import {FilterService} from "../../service/filter.service";
 
 @Component({
   selector: 'app-posts',
@@ -24,7 +25,10 @@ export class PostsComponent implements OnInit, OnDestroy {
   descriptionControl = new FormControl();
   searchSubscription: Subscription;
 
-  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private postService: PostService,
+              private filterService: FilterService,
+              private router: Router,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.searchSubscription = this.titleControl.valueChanges.pipe(
@@ -48,6 +52,17 @@ export class PostsComponent implements OnInit, OnDestroy {
       })
     ).subscribe(posts => {
       this.filteredPosts = posts;
+    });
+
+    this.range.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(() => {
+      this.performDateRangeSearch();
+    });
+
+    this.filterService.filterReset.subscribe(() => {
+      this.resetFilter();
     });
   }
 
@@ -75,13 +90,13 @@ export class PostsComponent implements OnInit, OnDestroy {
   performSearch(value: string, searchBy: 'title' | 'description') {
     let title: string = '';
     let description: string = '';
-  
+
     if (searchBy === 'title') {
       title = value;
     } else if (searchBy === 'description') {
       description = value;
     }
-  
+
     if (value.trim() === '') {
       this.getPostsByCategory(null).subscribe(posts => {
         this.handleSearchResults(posts);
@@ -97,7 +112,31 @@ export class PostsComponent implements OnInit, OnDestroy {
         console.error(error);
       });
     }
-}
+  }
+
+  performDateRangeSearch() {
+    const startDate = this.range.get('start').value;
+    const endDate = this.range.get('end').value;
+    if (startDate && endDate) {
+      this.postService.sortByDateRangePicker(startDate, endDate).subscribe(posts => {
+        console.log(this.handleSearchResults(posts));
+        this.handleSearchResults(posts);
+      }, error => {
+        console.log(error);
+      });
+    }
+  }
+
+  resetFilter() {
+    this.range.setValue({ start: null, end: null });
+    this.titleControl.setValue('');
+    this.descriptionControl.setValue('');
+    this.getPostsByCategory(null).subscribe(posts => {
+      this.handleSearchResults(posts);
+    }, error => {
+      console.error(error);
+    });
+  }
 
   handleSearchResults(posts: Post[]) {
     this.filteredPosts = posts;
