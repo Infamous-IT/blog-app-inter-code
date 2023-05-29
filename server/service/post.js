@@ -8,7 +8,7 @@ import {
     sortByCreationDate,
     sortByDateRangePicker,
     uploadMultiplePhotos,
-    getTotalCount
+    getTotalCount,
 } from '../repository/post.js';
 
 
@@ -38,10 +38,16 @@ export const createPostWithPhotos = async (postData, files) => {
     return postWithPhotos;
 }
 
-export const updatePostById = async (id, data) => {
+// export const updatePostById = async (id, data) => {
+//     const updatedPost = await updatePost(id, data);
+//     return await updatedPost.save();
+// };
+
+export const updatePostById = async (id, data, files) => {
     const updatedPost = await updatePost(id, data);
-    return await updatedPost.save();
-};
+    const postWithPhoto = await uploadMultiplePhotos(updatedPost, files);
+    return postWithPhoto;
+}
 
 export const removePostById = async (id) => {
     return await removePost(id);

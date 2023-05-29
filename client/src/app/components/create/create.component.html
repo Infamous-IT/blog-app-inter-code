@@ -16,14 +16,14 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="dropzone_container" appDragAndDrop (fileDropped)="onFileDropped($event)">
+    <div *ngIf="!isUpdating" class="dropzone_container" appDragAndDrop (fileDropped)="onFileDropped($event)">
       <input class="input_upload_file" type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event)" />
       <img src="../../../assets/ic-upload-file.svg" alt="">
       <h3 class="h3_upload_file">Drag and drop file here</h3>
       <h3 class="h3_upload_file">or</h3>
       <label class="label_upload_file" for="fileDropRef">Browse for file</label>
     </div>
-    <div class="files-list">
+    <div *ngIf="!isUpdating" class="files-list">
       <div class="single-file" *ngFor="let file of files; let i = index">
         <mat-icon>description</mat-icon>
         <div class="info">
@@ -34,14 +34,11 @@
         </div>
       </div>
     </div>
-    <!-- <mat-card-actions>
-      <button type="submit" class="save_post" mat-button>Save Post</button>
-    </mat-card-actions> -->
     <mat-card-actions>
       <button type="submit" class="save_post" mat-button>{{ isUpdating ? 'Update' : 'Save' }} Post</button>
     </mat-card-actions>
   </form>
   <mat-card-actions>
     <button mat-button (click)="backToHomePage()">Back</button>
-  </mat-card-actions>    
+  </mat-card-actions>
 </ng-container>

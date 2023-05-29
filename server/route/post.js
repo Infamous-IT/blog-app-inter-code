@@ -11,7 +11,7 @@ import {
     sortPostsByCreationDate,
     sortPostsByDateRangePicker,
     uploadMultiplePhoto,
-    getPostTotalCount
+    getPostTotalCount,
 } from '../service/post.js';
 
 const router = express.Router();
@@ -56,18 +56,30 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-router.patch("/:id", async (req, res, next) => {
+// router.patch("/:id", async (req, res, next) => {
+//     try {
+//         const updatedPost = await updatePostById(
+//             req.params.id, req.body,
+//             { $set: req.body.data },
+//             { new: true });
+//         res.status(201).json(updatedPost);
+//     } catch (error) {
+//         next(error);
+//     }
+// });
+
+router.patch("/:id", upload.array("photos", 10), async (req, res, next) => {
     try {
         const updatedPost = await updatePostById(
-            req.params.id, req.body,
-            { $set: req.body.data },
-            { new: true });
+            req.params.id,
+            req.body,
+            req.files
+        );
         res.status(201).json(updatedPost);
     } catch (error) {
         next(error);
     }
 });
-
 
 router.delete("/:id", async (req, res, next) => {
     try {
@@ -147,6 +159,31 @@ router.get("/:id", async (req, res, next) => {
         next(error);
     }
 });
+
+// router.patch(
+//     "/:id/upload_photos",
+//     upload.array("photos", 10),
+//     async (req, res, next) => {
+//         try {
+//             if (req.files.length > 10) {
+//                 return res
+//                     .status(400)
+//                     .json({ message: "Maximum number of photos allowed is 10" });
+//             }
+//
+//             const uploadedPhotos = req.files.map((file) => ({
+//                 url: `/assets/images/${file.filename}`,
+//                 contentType: file.mimetype,
+//                 path: file.path,
+//             }));
+//
+//             const post = await uploadMultiplePhoto(req.params.id, uploadedPhotos);
+//             res.status(200).json(post);
+//         } catch (error) {
+//             next(error);
+//         }
+//     }
+// );
 
 router.patch(
     "/:id/upload_photos",
