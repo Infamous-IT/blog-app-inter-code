@@ -44,17 +44,24 @@ mat-card-actions {
   justify-content: center;
 }
 
-/* .photos {
+.btn {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 20px;
-} */
+  justify-content: center;
+  flex-direction: row;
+}
 
-/* .photos img {
-  width: calc(33% - 10px);
-  margin-bottom: 10px;
-} */
+.btn mat-card-actions button {
+  margin: 10px;
+}
+
+mat-card-actions .back_to_home {
+  background-color: gray;
+}
+
+mat-card-actions .back_to_home:hover {
+  background-color: #e0e0e0;
+  color: black;
+}
 
 mat-card-actions button {
   margin: 0 auto;

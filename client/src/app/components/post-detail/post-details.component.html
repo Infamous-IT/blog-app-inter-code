@@ -27,13 +27,15 @@
     </ul>
   </div>
 
+  <div class="btn">
+    <mat-card-actions>
+      <button type="submit" class="edit-post" mat-button (click)="editPost()" >Edit Post</button>
+    </mat-card-actions>
+    <mat-card-actions>
+      <button class="delete-btn" mat-button (click)="deletePost()">Delete post</button>
+    </mat-card-actions>
+  </div>
   <mat-card-actions>
-    <button mat-button (click)="backToHomePage()">Back</button>
-  </mat-card-actions>
-  <mat-card-actions>
-    <button type="submit" class="edit-post" mat-button (click)="editPost()" >Edit Post</button>
-  </mat-card-actions>
-  <mat-card-actions>
-    <button class="delete-btn" mat-button (click)="deletePost()">Delete post</button>
+    <button mat-button class="back_to_home" (click)="backToHomePage()">Back</button>
   </mat-card-actions>
 </ng-container>
