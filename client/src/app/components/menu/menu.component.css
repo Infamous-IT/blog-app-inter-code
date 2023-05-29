@@ -51,6 +51,7 @@ nav {
     background-color: #007bff;
     padding: 10px 20px;
     border-radius: 5px;
+    border: none;
 }
 
 .create-button:hover {
@@ -75,7 +76,7 @@ nav {
 
 .input-search-class {
     margin: 5px;
-    border-color: #007bff; 
+    border-color: #007bff;
 }
 
 li {

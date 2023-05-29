@@ -77,11 +77,6 @@ router.delete("/:id", async (req, res, next) => {
         next(error);
     }
 });
-// if (req.photos.length > 10) {
-        //     return res
-        //         .status(400)
-        //         .json({ message: "Maximum number of photos allowed is 10" });
-        // }
 
 router.post("/", upload.array("photos", 10), async (req, res, next) => {
     try {
