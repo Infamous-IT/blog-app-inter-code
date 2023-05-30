@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './components/posts/posts.component';
@@ -23,6 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostService } from './service/post.service';
 import { DragAndDropDirective } from './directive/drag-and-drop.directive';
 import { ProgressComponent } from './components/progress/progress.component';
+import { CommentListComponent } from './components/comment-list/comment-list.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import { ProgressComponent } from './components/progress/progress.component';
     PostDetailsComponent,
     CreateComponent,
     DragAndDropDirective,
-    ProgressComponent
+    ProgressComponent,
+    CommentListComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,8 @@ import { ProgressComponent } from './components/progress/progress.component';
     MatSelectModule,
     DragDropModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatSnackBarModule
   ],
   providers: [PostService],
   bootstrap: [AppComponent]

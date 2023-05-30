@@ -37,10 +37,9 @@ router.patch("/:id", async (req, res, next) => {
     try {
         const updatedComment = await updateCommentById(
             req.params.id,
-            { $set: req.body },
-            { new: true }
+            req.body
         );
-    res.status(200).json(updatedComment);
+        res.status(200).json(updatedComment);
     } catch (error) {
         next(error);
     }
@@ -74,13 +73,13 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/:postId", async (req, res, next) => {
     try {
-        const {postId} = req.params;
-        const body = req.body.text;
-        if(!body?.text) {
+        const { postId } = req.params;
+        const { text } = req.body;
+        if (!text) {
             throw new Error("Text cannot be empty!");
         }
-        const result = await createComments(postId, body);
-        res.status(200).json(result)
+        const result = await createComments(postId, text);
+        res.status(200).json(result);
     } catch (error) {
         next(error);
     }

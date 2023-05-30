@@ -14,12 +14,12 @@ export const getCommentById = (id) => {
 }
 
 export const createComment = (postId, text) => {
-    return Comment.create({postId, text});
-}
+    return Comment.create({ post: postId, text });
+};
 
 export const updateComment = (id, text) => {
-    return Comment.findByIdAndUpdate(id, text, { new: true });
-}
+    return Comment.findByIdAndUpdate(id, { text: text }, { new: true });
+};
 
 export const removeComment = (id) => {
     return Comment.findByIdAndDelete(id);

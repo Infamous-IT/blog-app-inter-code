@@ -1,0 +1,44 @@
+.add-comment {
+  display: flex;
+  justify-content: center;
+}
+
+textarea {
+  height: 150px;
+  width: 600px;
+}
+
+.btn-send {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0 0 475px;
+}
+
+.btn-send button {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-send button:hover {
+  background-color: rgba(141, 187, 224, 0.6);
+  color: #007bff;
+}
+
+
+.comments-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comments-container mat-card {
+  width: 500px;
+  margin-top: 10px;
+}
+
+.comments-container mat-card mat-card-content .comment_date {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 8px;
+}

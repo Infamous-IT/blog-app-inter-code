@@ -149,7 +149,7 @@ router.get("/:id", async (req, res, next) => {
                 url: `${photo.url}`,
             })),
             comments: post.comments.map((comment) => ({
-                ...comment.toObject(),
+                ...comment,
                 text: `${comment.text}`
             })),
         };

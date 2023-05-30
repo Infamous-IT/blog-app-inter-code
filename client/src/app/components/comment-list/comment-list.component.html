@@ -1,0 +1,17 @@
+<div class="add-comment">
+  <textarea matInput [(ngModel)]="newCommentText" placeholder="Add a comment"></textarea>
+</div>
+
+<div class="btn-send">
+  <button mat-raised-button (click)="addComment(newCommentText)">Add Comment</button>
+</div>
+
+<div class="comments-container">
+  <h3>Comments</h3>
+    <mat-card *ngFor="let comment of comments">
+      <mat-card-content>
+        <div class="comment_date">{{ comment.date | date}}</div>
+        <div>{{ comment?.text }}</div>
+      </mat-card-content>
+    </mat-card>
+</div>

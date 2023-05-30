@@ -17,14 +17,7 @@
   </div>
 
   <div class="comments-container">
-    <h3>Comments</h3>
-    <ul>
-      <li class="comment" *ngFor="let comment of comments">
-        <ng-container *ngIf="isCommentForPost(comment)">
-          {{ comment?.text }}
-        </ng-container>
-      </li>
-    </ul>
+        <app-comment-list [postId]="post['_id']"></app-comment-list>
   </div>
 
   <div class="btn">

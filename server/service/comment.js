@@ -21,24 +21,25 @@ export const getComment = async (id) => {
 };
 
 export const getCommentByPostsId = async (postId) => {
-    const comments = await getAllComments();
-    return comments.filter(comment => comment.post === postId);
-}
+    return await getCommentsByPostId(postId);
+};
 
 export const createComments = async (postId, commentText) => {
     const post = await getPost(postId);
     if (!post) {
-        return res.status(404).send('Post not found');
+        throw new Error('Post not found');
     }
-    const newComment = await createComment(post, commentText);
-    await newComment.save();
+    const newComment = await createComment(postId, commentText);
     post.comments.push(newComment._id);
-    return await post.save();
+    await post.save();
+    const populatedComment = await newComment.populate('post');
+    return populatedComment;
 };
 
+
 export const updateCommentById = async (id, data) => {
-    const updatedComment = await updateComment(id, data);
-    return await updatedComment.save();
+    const updatedComment = await updateComment(id, data.text);
+    return updatedComment;
 };
 
 export const removeCommentById = async (id) => {
