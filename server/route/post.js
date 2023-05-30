@@ -19,10 +19,10 @@ const upload = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
             //when i use my MacBook
-            cb(null, "/Users/nazar_hlukhaniuk/documents/projects/blog-app-inter-code/server/assets/images");
+            // cb(null, "/Users/nazar_hlukhaniuk/documents/projects/blog-app-inter-code/server/assets/images");
 
             //when i use my PC
-            // cb(null, "E:/DevProj/blog-app-inter-code/server/assets/images");
+            cb(null, "E:/DevProj/blog-app-inter-code/server/assets/images");
         },
         filename: function (req, file, cb) {
             const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -56,6 +56,7 @@ router.get("/", async (req, res, next) => {
     }
 });
 
+
 // router.patch("/:id", async (req, res, next) => {
 //     try {
 //         const updatedPost = await updatePostById(
@@ -68,18 +69,34 @@ router.get("/", async (req, res, next) => {
 //     }
 // });
 
-router.patch("/:id", upload.array("photos", 10), async (req, res, next) => {
+router.patch("/:id", async (req, res, next) => {
     try {
+        const postId = req.params.id;
+        const { title, content, comments } = req.body;
+
+        let updatedComments = [];
+        if (Array.isArray(comments)) {
+            updatedComments = comments.map(comment => {
+                if (comment.text && typeof comment.text === 'string') {
+                    return { text: comment.text };
+                }
+                return null;
+            });
+        }
+
         const updatedPost = await updatePostById(
-            req.params.id,
-            req.body,
-            req.files
+            postId,
+            { title, content, comments: updatedComments },
+            { $set: { title, content, comments: updatedComments } },
+            { new: true }
         );
+
         res.status(201).json(updatedPost);
     } catch (error) {
         next(error);
     }
 });
+
 
 router.delete("/:id", async (req, res, next) => {
     try {
@@ -148,10 +165,10 @@ router.get("/:id", async (req, res, next) => {
                 ...photo.toObject(),
                 url: `${photo.url}`,
             })),
-            comments: post.comments.map((comment) => ({
+            comments: post.comments ? post.comments.map((comment) => ({
                 ...comment,
                 text: `${comment.text}`
-            })),
+            })) : [],
         };
 
         res.status(200).json(postWithPhotoPaths);

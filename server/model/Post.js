@@ -45,8 +45,4 @@ const postSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-// postSchema.path('photos').validate(function(photos) {
-//     return  photos.length > 10;
-// }, 'Maximum number of photos allowed is 10');
-
 export default mongoose.model("Posts", postSchema);

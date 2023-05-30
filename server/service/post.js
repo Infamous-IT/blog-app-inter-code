@@ -38,16 +38,10 @@ export const createPostWithPhotos = async (postData, files) => {
     return postWithPhotos;
 }
 
-// export const updatePostById = async (id, data) => {
-//     const updatedPost = await updatePost(id, data);
-//     return await updatedPost.save();
-// };
-
-export const updatePostById = async (id, data, files) => {
+export const updatePostById = async (id, data) => {
     const updatedPost = await updatePost(id, data);
-    const postWithPhoto = await uploadMultiplePhotos(updatedPost, files);
-    return postWithPhoto;
-}
+    return await updatedPost.save();
+};
 
 export const removePostById = async (id) => {
     return await removePost(id);
