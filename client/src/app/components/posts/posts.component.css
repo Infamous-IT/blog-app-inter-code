@@ -82,3 +82,18 @@
   .filter-reset {
     margin-bottom: 25px;
   }
+
+.scroll-to-top {
+  position: fixed;
+  background-color: rgb(13, 100, 231);
+  color: white;
+  border: none;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1;
+}
+
+.scroll-to-top:hover {
+  background-color: rgb(188, 215, 255);
+  color: rgb(13, 100, 231);
+}

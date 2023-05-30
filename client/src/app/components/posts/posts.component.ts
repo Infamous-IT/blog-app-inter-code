@@ -1,5 +1,5 @@
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, HostListener} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -24,6 +24,8 @@ export class PostsComponent implements OnInit, OnDestroy {
   titleControl = new FormControl();
   descriptionControl = new FormControl();
   searchSubscription: Subscription;
+
+  showScrollToTopButton = false;
 
   constructor(private postService: PostService,
               private filterService: FilterService,
@@ -141,5 +143,14 @@ export class PostsComponent implements OnInit, OnDestroy {
   handleSearchResults(posts: Post[]) {
     this.filteredPosts = posts;
     console.log(this.filteredPosts);
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    this.showScrollToTopButton = window.pageYOffset > 0;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
