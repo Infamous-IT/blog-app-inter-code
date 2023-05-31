@@ -5,5 +5,7 @@ export interface Post {
     photos: any[];
     category: string;
     date: Date;
-    comments: string[];
+    // comments: string[];
+  comments: { text: string, date: string }[];
 }
+

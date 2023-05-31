@@ -38,10 +38,23 @@ export const createPostWithPhotos = async (postData, files) => {
     return postWithPhotos;
 }
 
+// export const updatePostById = async (id, data) => {
+//     const updatedPost = await updatePost(id, data);
+//     return await updatedPost.save();
+// };
+
 export const updatePostById = async (id, data) => {
-    const updatedPost = await updatePost(id, data);
-    return await updatedPost.save();
+    const post = await updatePost(id);
+    if (!post) {
+        throw new Error('Пост не знайдено');
+    }
+
+    post.title = data.title;
+    post.content = data.content;
+
+    return post.save();
 };
+
 
 export const removePostById = async (id) => {
     return await removePost(id);

@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/service/post.service';
 import { Post } from 'src/app/interface/post.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-create',
@@ -41,6 +41,21 @@ export class CreateComponent implements OnInit {
     if (this.isUpdating) {
       this.getPostById();
     }
+  }
+
+  isFieldInvalid(fieldName: string): boolean {
+    const control = this.postForm.get(fieldName) as FormControl;
+    return control.invalid && (control.dirty || control.touched || control.value.trim() === '');
+  }
+
+  isFieldTouched(fieldName: string): boolean {
+    const field = this.postForm.get(fieldName);
+    return field.touched;
+  }
+
+  validateField(fieldName: string): boolean {
+    const field = this.postForm.get(fieldName);
+    return field.invalid && field.touched;
   }
 
   onFileDropped($event) {
@@ -89,9 +104,21 @@ export class CreateComponent implements OnInit {
   }
 
   savePost(): void {
-    if (this.postForm.valid) {
+    if (this.postForm.valid || this.isUpdating) {
       const post: Post = this.postForm.value;
       const files: File[] = this.postForm.get('photos').value;
+      //
+      // const comments = post.comments;
+      // if (comments) {
+      //   if (!Array.isArray(comments) || comments.length === 0) {
+      //     post.comments = null;
+      //   } else {
+      //     post.comments = comments.map(comment => ({
+      //       text: comment.text === 'undefined' ? null : comment.text,
+      //       date: comment.date === 'undefined' ? null : comment.date
+      //     }));
+      //   }
+      // }
 
       if (this.isUpdating) {
         const postId = this.route.snapshot.params['id'];
@@ -117,6 +144,8 @@ export class CreateComponent implements OnInit {
       }
     }
   }
+
+
 
   backToHomePage() {
     this.router.navigate(['/']);

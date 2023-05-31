@@ -18,11 +18,13 @@ const router = express.Router();
 const upload = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
-            //when i use my MacBook
-            // cb(null, "/Users/nazar_hlukhaniuk/documents/projects/blog-app-inter-code/server/assets/images");
+            const isMacBook = true;
 
-            //when i use my PC
-            cb(null, "E:/DevProj/blog-app-inter-code/server/assets/images");
+            if (isMacBook) {
+                cb(null, "/Users/nazar_hlukhaniuk/documents/projects/blog-app-inter-code/server/assets/images");
+            } else {
+                cb(null, "E:/DevProj/blog-app-inter-code/server/assets/images");
+            }
         },
         filename: function (req, file, cb) {
             const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -56,41 +58,9 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-
-// router.patch("/:id", async (req, res, next) => {
-//     try {
-//         const updatedPost = await updatePostById(
-//             req.params.id, req.body,
-//             { $set: req.body.data },
-//             { new: true });
-//         res.status(201).json(updatedPost);
-//     } catch (error) {
-//         next(error);
-//     }
-// });
-
 router.patch("/:id", async (req, res, next) => {
     try {
-        const postId = req.params.id;
-        const { title, content, comments } = req.body;
-
-        let updatedComments = [];
-        if (Array.isArray(comments)) {
-            updatedComments = comments.map(comment => {
-                if (comment.text && typeof comment.text === 'string') {
-                    return { text: comment.text };
-                }
-                return null;
-            });
-        }
-
-        const updatedPost = await updatePostById(
-            postId,
-            { title, content, comments: updatedComments },
-            { $set: { title, content, comments: updatedComments } },
-            { new: true }
-        );
-
+        const updatedPost = await updatePostById(req.params.id, req.body);
         res.status(201).json(updatedPost);
     } catch (error) {
         next(error);
@@ -176,31 +146,6 @@ router.get("/:id", async (req, res, next) => {
         next(error);
     }
 });
-
-// router.patch(
-//     "/:id/upload_photos",
-//     upload.array("photos", 10),
-//     async (req, res, next) => {
-//         try {
-//             if (req.files.length > 10) {
-//                 return res
-//                     .status(400)
-//                     .json({ message: "Maximum number of photos allowed is 10" });
-//             }
-//
-//             const uploadedPhotos = req.files.map((file) => ({
-//                 url: `/assets/images/${file.filename}`,
-//                 contentType: file.mimetype,
-//                 path: file.path,
-//             }));
-//
-//             const post = await uploadMultiplePhoto(req.params.id, uploadedPhotos);
-//             res.status(200).json(post);
-//         } catch (error) {
-//             next(error);
-//         }
-//     }
-// );
 
 router.patch(
     "/:id/upload_photos",

@@ -110,6 +110,11 @@ mat-card-actions button:hover {
   background-color: gray;
 }
 
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
+
 .btn .back_to_home:hover {
   background-color: #e0e0e0;
   color: black;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Post } from '../interface/post.interface';
 import { URL_FOR_PHOTO } from '../../config';
@@ -16,6 +16,12 @@ export class PostService {
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.baseUrl);
   }
+
+  // getPosts(page: number = 1, limit: number = 6): Observable<Post[]> {
+  //   const params = { page: String(page), limit: String(limit) };
+  //   return this.http.get<Post[]>(this.baseUrl, { params });
+  // }
+
 
   getPostById(id: string): Observable<Post> {
     const url = `${this.baseUrl}/${id}`;
@@ -43,6 +49,7 @@ export class PostService {
     return this.http.patch<Post>(`${this.baseUrl}/${id}`, post);
   }
 
+
   deletePost(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
@@ -60,10 +67,6 @@ export class PostService {
   sortByCreationDate(sortOrder: string): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.baseUrl}/sort/by_creation_date?sortOrder=${sortOrder}`);
   }
-
-  // sortByDateRangePicker(startDate: Date, endDate: Date): Observable<Post[]> {
-  //   return this.http.get<Post[]>(`${this.baseUrl}/sort/by_date_range_picker?startDate=${startDate}&endDate=${endDate}`);
-  // }
 
   sortByDateRangePicker(startDate: Date, endDate: Date): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.baseUrl}/sort/by_date_range_picker`, {
