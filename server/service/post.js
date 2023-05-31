@@ -38,11 +38,6 @@ export const createPostWithPhotos = async (postData, files) => {
     return postWithPhotos;
 }
 
-// export const updatePostById = async (id, data) => {
-//     const updatedPost = await updatePost(id, data);
-//     return await updatedPost.save();
-// };
-
 export const updatePostById = async (id, data) => {
     const post = await updatePost(id);
     if (!post) {

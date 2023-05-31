@@ -65,7 +65,8 @@ export class PostService {
   }
 
   sortByCreationDate(sortOrder: string): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.baseUrl}/sort/by_creation_date?sortOrder=${sortOrder}`);
+    const params = new HttpParams().set('sortOrder', sortOrder);
+    return this.http.get<Post[]>(`${this.baseUrl}/sort/by_creation_date`, { params });
   }
 
   sortByDateRangePicker(startDate: Date, endDate: Date): Observable<Post[]> {

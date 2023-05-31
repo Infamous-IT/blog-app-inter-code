@@ -1,4 +1,3 @@
-
 import {Component, OnInit, OnDestroy, HostListener} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -7,7 +6,7 @@ import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operato
 import { Post } from 'src/app/interface/post.interface';
 import { PostService } from '../../service/post.service';
 import { Observable } from 'rxjs';
-import {FilterService} from "../../service/filter.service";
+import { FilterService } from "../../service/filter.service";
 
 @Component({
   selector: 'app-posts',
@@ -24,8 +23,8 @@ export class PostsComponent implements OnInit, OnDestroy {
   titleControl = new FormControl();
   descriptionControl = new FormControl();
   searchSubscription: Subscription;
-
   showScrollToTopButton = false;
+  sortOrder: string = 'asc';
 
   constructor(private postService: PostService,
               private filterService: FilterService,
@@ -139,6 +138,16 @@ export class PostsComponent implements OnInit, OnDestroy {
       console.error(error);
     });
   }
+
+  sortPostsByCreationDate() {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.filteredPosts.sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return this.sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    });
+  }
+
 
   handleSearchResults(posts: Post[]) {
     this.filteredPosts = posts;

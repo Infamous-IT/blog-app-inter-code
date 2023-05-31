@@ -1,6 +1,7 @@
 .footer-block {
   position: sticky;
   background-color: #f5f5f5;
+  bottom: 0;
   padding: 10px;
   text-align: center;
 }

@@ -26,10 +26,6 @@ export const createPost = (post) => {
     return Post.create(post);
 }
 
-// export const updatePost = (id, post) => {
-//     return Post.findByIdAndUpdate(id, post, { new: true });;
-// }
-
 export const updatePost = (id, post) => {
     return Post.findByIdAndUpdate(id, { $set: post }, { new: true });
 };
