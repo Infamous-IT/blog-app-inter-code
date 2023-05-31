@@ -48,6 +48,7 @@ export const searchPosts = (query) => {
     if (category) {
         searchQuery.category = { $regex: new RegExp(category, 'i') };
     }
+
     return Post.find({$or: [
         { title: searchQuery.title },
         { description: searchQuery.description },

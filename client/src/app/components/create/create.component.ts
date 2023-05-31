@@ -107,18 +107,6 @@ export class CreateComponent implements OnInit {
     if (this.postForm.valid || this.isUpdating) {
       const post: Post = this.postForm.value;
       const files: File[] = this.postForm.get('photos').value;
-      //
-      // const comments = post.comments;
-      // if (comments) {
-      //   if (!Array.isArray(comments) || comments.length === 0) {
-      //     post.comments = null;
-      //   } else {
-      //     post.comments = comments.map(comment => ({
-      //       text: comment.text === 'undefined' ? null : comment.text,
-      //       date: comment.date === 'undefined' ? null : comment.date
-      //     }));
-      //   }
-      // }
 
       if (this.isUpdating) {
         const postId = this.route.snapshot.params['id'];

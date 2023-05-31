@@ -41,11 +41,11 @@ export const createPostWithPhotos = async (postData, files) => {
 export const updatePostById = async (id, data) => {
     const post = await updatePost(id);
     if (!post) {
-        throw new Error('Пост не знайдено');
+        throw new Error('Post was not found!');
     }
 
     post.title = data.title;
-    post.content = data.content;
+    post.description = data.description;
 
     return post.save();
 };

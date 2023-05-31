@@ -26,6 +26,7 @@ import { DragAndDropDirective } from './directive/drag-and-drop.directive';
 import { ProgressComponent } from './components/progress/progress.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { FooterComponent } from './components/footer/footer.component';
     DragAndDropDirective,
     ProgressComponent,
     CommentListComponent,
-    FooterComponent
+    FooterComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@
     </div>
     <div>
       <label for="description">Description:</label>
-      <textarea id="description" formControlName="description" required></textarea>
+      <textarea id="description" formControlName="description" required (blur)="validateField('description')"></textarea>
       <div *ngIf="isFieldInvalid('description') && isFieldTouched('description')" class="error-message">Description must contain minimum 10 symbols and maximum 5000 symbols</div>
     </div>
     <div>
