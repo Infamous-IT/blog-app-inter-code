@@ -21,7 +21,7 @@ const upload = multer({
         destination: function (req, file, cb) {
             const isMacBook = true;
 
-            if (isMacBook) {
+            if (!isMacBook) {
                 cb(null, "/Users/nazar_hlukhaniuk/documents/projects/blog-app-inter-code/server/assets/images");
             } else {
                 cb(null, "E:/DevProj/blog-app-inter-code/server/assets/images");
@@ -45,15 +45,6 @@ const upload = multer({
 //             getPostTotalCount()
 //         ]);
 //         res.status(200).json({ posts, total });
-//     } catch (error) {
-//         next(error);
-//     }
-// });
-
-// router.get("/", async (req, res, next) => {
-//     try {
-//         const result = await getAll();
-//         res.status(200).json(result);
 //     } catch (error) {
 //         next(error);
 //     }
@@ -110,44 +101,6 @@ router.post("/", upload.array("photos", 10), async (req, res, next) => {
         next(error);
     }
 });
-
-// router.get("/search/by", async (req, res, next) => {
-//     try {
-//         const posts = await searchPost(req.query);
-//         res.status(200).json(posts);
-//     } catch (error) {
-//         next(error);
-//     }
-// });
-//
-// router.get("/sort/by_creation_date", async (req, res, next) => {
-//     try {
-//         let sortOrderByDefault = req.query.order || 'asc';
-//         const posts = await sortPostsByCreationDate(sortOrderByDefault);
-//         res.status(200).json(posts);
-//     } catch (error) {
-//         next(error);
-//     }
-// });
-//
-// router.get("/sort/by_date_range_picker", async (req, res, next) => {
-//     try {
-//         const { startDate, endDate } = req.query;
-//         const posts = await sortPostsByDateRangePicker(startDate, endDate);
-//         res.status(200).json(posts);
-//     } catch (error) {
-//         next(error);
-//     }
-// });
-// router.get("/filter", async (req, res, next) => {
-//     try {
-//         const query = req.query;
-//         const posts = await filterPosts(query);
-//         res.status(200).json(posts);
-//     } catch (error) {
-//         next(error);
-//     }
-// });
 
 router.get("/:id", async (req, res, next) => {
     try {
