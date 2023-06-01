@@ -5,8 +5,8 @@ import {
     updatePost,
     createPost,
     searchPosts,
-    sortByCreationDate,
-    sortByDateRangePicker,
+    // sortByCreationDate,
+    // sortByDateRangePicker,
     uploadMultiplePhotos,
     getTotalCount,
 } from '../repository/post.js';
@@ -55,16 +55,28 @@ export const removePostById = async (id) => {
     return await removePost(id);
 };
 
-export const searchPost = async (query) => {
-    return await searchPosts(query);
-}
+// export const searchPost = async (query) => {
+//     return await searchPosts(query);
+// }
+//
+// export const sortPostsByCreationDate = async (sortOrder) => {
+//     return await sortByCreationDate(sortOrder);
+// }
+//
+// export const sortPostsByDateRangePicker = async (startDate, endDate) => {
+//     return await sortByDateRangePicker(startDate, endDate);
+// }
 
-export const sortPostsByCreationDate = async (sortOrder) => {
-    return await sortByCreationDate(sortOrder);
-}
-
-export const sortPostsByDateRangePicker = async (startDate, endDate) => {
-    return await sortByDateRangePicker(startDate, endDate);
+export const filterPosts = async (query) => {
+    if (query.title || query.description || query.category) {
+        return await searchPosts(query);
+    } else if (query.sortOrder) {
+        return await searchPosts({ sortOrder: query.sortOrder });
+    } else if (query.startDate && query.endDate) {
+        return await searchPosts({ startDate: query.startDate, endDate: query.endDate });
+    } else {
+        throw new Error('Invalid query');
+    }
 }
 
 export const uploadMultiplePhoto = async (postId, files) => {

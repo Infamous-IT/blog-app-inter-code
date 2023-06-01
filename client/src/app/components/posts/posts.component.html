@@ -1,3 +1,48 @@
+<!--<div class="search-options">-->
+<!--  <input class="input-search-class" type="text" [formControl]="titleControl" (input)="performSearch(titleControl.value, 'title')" placeholder="Search by Title">-->
+<!--  <input class="input-search-class" type="text" [formControl]="descriptionControl" (input)="performSearch(descriptionControl.value, 'description')" placeholder="Search by Description">-->
+<!--  <mat-form-field>-->
+<!--    <mat-label>Select a date range</mat-label>-->
+<!--    <mat-date-range-input [rangePicker]="picker" (dateInput)="performDateRangeSearch()">-->
+<!--      <input matStartDate placeholder="Start date" [formControl]="range.controls['start']">-->
+<!--      <input matEndDate placeholder="End date" [formControl]="range.controls['end']">-->
+<!--    </mat-date-range-input>-->
+<!--    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--    <mat-date-range-picker #picker></mat-date-range-picker>-->
+<!--  </mat-form-field>-->
+<!--  <button class="sort-button" mat-button (click)="sortPostsByCreationDate()">Sort by Creation Date</button>-->
+<!--</div>-->
+
+<!--<div class="filter-reset">-->
+<!--  <mat-card-actions>-->
+<!--    <button mat-button (click)="resetFilter()">Filter reset</button>-->
+<!--  </mat-card-actions>-->
+<!--</div>-->
+
+<!--<div class="post-list">-->
+<!--  <mat-card *ngFor="let post of filteredPosts">-->
+<!--    <mat-card-header>-->
+<!--      <div mat-card-avatar class="post-header-image"></div>-->
+<!--      <mat-card-title>{{ post.title }}</mat-card-title>-->
+<!--      <mat-card-subtitle>{{ post.category }}</mat-card-subtitle>-->
+<!--    </mat-card-header>-->
+<!--    <div class="photos" *ngFor="let photo of post.photos">-->
+<!--      <img mat-card-image [src]="getPhotoSrc(photo)" alt="photos">-->
+<!--    </div>-->
+<!--    <mat-card-content>-->
+<!--      <p>{{ post.description }}</p>-->
+<!--    </mat-card-content>-->
+<!--    <mat-card-actions>-->
+<!--      <button mat-button (click)="viewDetails(post)">View Details</button>-->
+<!--    </mat-card-actions>-->
+<!--  </mat-card>-->
+<!--</div>-->
+
+<!--<div class="scroll_block">-->
+<!--  <button class="scroll-to-top" (click)="scrollToTop()" *ngIf="showScrollToTopButton">-->
+<!--    <span class="material-icons">arrow_upward</span>-->
+<!--  </button>-->
+<!--</div>-->
 <div class="search-options">
   <input class="input-search-class" type="text" [formControl]="titleControl" (input)="performSearch(titleControl.value, 'title')" placeholder="Search by Title">
   <input class="input-search-class" type="text" [formControl]="descriptionControl" (input)="performSearch(descriptionControl.value, 'description')" placeholder="Search by Description">
@@ -43,3 +88,4 @@
     <span class="material-icons">arrow_upward</span>
   </button>
 </div>
+

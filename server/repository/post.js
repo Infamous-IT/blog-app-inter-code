@@ -35,35 +35,85 @@ export const removePost = (id) => {
     return Post.findByIdAndDelete(id);
 }
 
+// export const searchPosts = (query) => {
+//     const {title, description, category} = query;
+//     const searchQuery = {};
+//
+//     if (title) {
+//         searchQuery.title = { $regex: new RegExp(title, 'i') };
+//     }
+//     if (description) {
+//         searchQuery.description = { $regex: new RegExp(description, 'i') };
+//     }
+//     if (category) {
+//         searchQuery.category = { $regex: new RegExp(category, 'i') };
+//     }
+//
+//     return Post.find({$or: [
+//         { title: searchQuery.title },
+//         { description: searchQuery.description },
+//         { category: searchQuery.category }
+//     ]});
+// }
+//
+// export const sortByCreationDate = (sortOrder) => {
+//     let sortDirection = sortOrder === 'desc' ? -1 : 1;
+//     return Post.find().sort({ date: sortDirection }).exec();
+// }
+//
+// export const sortByDateRangePicker = (startDate, endDate) => {
+//     return Post.find({date: { $gte: startDate, $lte: endDate }});
+// }
+
 export const searchPosts = (query) => {
-    const {title, description, category} = query;
-    const searchQuery = {};
+    const { title, description, category, sortOrder, startDate, endDate } = query;
+    const aggregatePipeline = [];
 
-    if (title) {
-        searchQuery.title = { $regex: new RegExp(title, 'i') };
+    // Search by title, description, and category
+    if (title || description || category) {
+        const searchQuery = {};
+
+        if (title) {
+            searchQuery.title = { $regex: new RegExp(title, 'i') };
+        }
+        if (description) {
+            searchQuery.description = { $regex: new RegExp(description, 'i') };
+        }
+        if (category) {
+            searchQuery.category = { $regex: new RegExp(category, 'i') };
+        }
+
+        aggregatePipeline.push({
+            $match: {
+                $or: [
+                    { title: searchQuery.title },
+                    { description: searchQuery.description },
+                    { category: searchQuery.category }
+                ]
+            }
+        });
     }
-    if (description) {
-        searchQuery.description = { $regex: new RegExp(description, 'i') };
+
+    // Sort by creation date
+    if (sortOrder) {
+        const sortDirection = sortOrder === 'desc' ? -1 : 1;
+        aggregatePipeline.push({
+            $sort: { date: sortDirection }
+        });
     }
-    if (category) {
-        searchQuery.category = { $regex: new RegExp(category, 'i') };
+
+    // Filter by date range
+    if (startDate && endDate) {
+        aggregatePipeline.push({
+            $match: {
+                date: { $gte: startDate, $lte: endDate }
+            }
+        });
     }
 
-    return Post.find({$or: [
-        { title: searchQuery.title },
-        { description: searchQuery.description },
-        { category: searchQuery.category }
-    ]});
-}
+    return Post.aggregate(aggregatePipeline);
+};
 
-export const sortByCreationDate = (sortOrder) => {
-    let sortDirection = sortOrder === 'desc' ? -1 : 1;
-    return Post.find().sort({ date: sortDirection }).exec();
-}
-
-export const sortByDateRangePicker = (startDate, endDate) => {
-    return Post.find({date: { $gte: startDate, $lte: endDate }});
-}
 
 export const uploadMultiplePhotos = (postId, files) => {
     const photos = files.map((file) => {

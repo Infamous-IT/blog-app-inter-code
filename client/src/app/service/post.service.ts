@@ -1,6 +1,149 @@
+// import { Injectable } from '@angular/core';
+// import {HttpClient, HttpParams} from '@angular/common/http';
+// import {catchError, map, Observable, throwError} from 'rxjs';
+// import { Post } from '../interface/post.interface';
+// import { URL_FOR_PHOTO } from '../../config';
+//
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class PostService {
+//
+//   baseUrl = 'http://localhost:8080/api/posts';
+//
+//   constructor(private http: HttpClient) { }
+//
+//   getPosts(): Observable<Post[]> {
+//     return this.http.get<Post[]>(this.baseUrl);
+//   }
+//
+//   // getPosts(page: number = 1, limit: number = 6): Observable<Post[]> {
+//   //   const params = { page: String(page), limit: String(limit) };
+//   //   return this.http.get<Post[]>(this.baseUrl, { params });
+//   // }
+//
+//
+//   getPostById(id: string): Observable<Post> {
+//     const url = `${this.baseUrl}/${id}`;
+//     return this.http.get<Post>(url).pipe(
+//       map((post: Post) => {
+//         if (post.photos && post.photos.length > 0) {
+//           post.photos.forEach((photo) => {
+//             photo.src = this.getPhotoSrc(photo.url);
+//           });
+//         }
+//         return post;
+//       })
+//     );
+//   }
+//
+//   getPhotoSrc(photo: any): string {
+//     return photo?.url ? URL_FOR_PHOTO + photo.url : '';
+//   }
+//
+//   createPost(post: Post): Observable<Post> {
+//     return this.http.post<Post>(this.baseUrl, post);
+//   }
+//
+//   updatePost(id: string, post: Post): Observable<Post> {
+//     return this.http.patch<Post>(`${this.baseUrl}/${id}`, post);
+//   }
+//
+//
+//   deletePost(id: string): Observable<void> {
+//     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+//   }
+//
+//   // searchPosts(category: string): Observable<Post[]> {
+//   //   const params = { category };
+//   //   return this.http.get<Post[]>(`${this.baseUrl}/search/by`, { params });
+//   // }
+//   //
+//   // searchPostsByTitleOrDescription(title: string, description: string): Observable<Post[]> {
+//   //   const params = { title, description };
+//   //   return this.http.get<Post[]>(`${this.baseUrl}/search/by`, { params });
+//   // }
+//   //
+//   // sortByCreationDate(sortOrder: string): Observable<Post[]> {
+//   //   const params = new HttpParams().set('sortOrder', sortOrder);
+//   //   return this.http.get<Post[]>(`${this.baseUrl}/sort/by_creation_date`, { params });
+//   // }
+//   //
+//   // sortByDateRangePicker(startDate: Date, endDate: Date): Observable<Post[]> {
+//   //   return this.http.get<Post[]>(`${this.baseUrl}/sort/by_date_range_picker`, {
+//   //     params: {
+//   //       startDate: startDate.toISOString(),
+//   //       endDate: endDate.toISOString()
+//   //     }
+//   //   })
+//   // }
+//   filterPosts(query: any): Observable<Post[]> {
+//     let params = new HttpParams();
+//
+//     if (query.title) {
+//       params = params.set('title', query.title);
+//     }
+//
+//     if (query.description) {
+//       params = params.set('description', query.description);
+//     }
+//
+//     if (query.category) {
+//       params = params.set('category', query.category);
+//     }
+//
+//     if (query.sortOrder) {
+//       params = params.set('sortOrder', query.sortOrder);
+//     }
+//
+//     if (query.startDate && query.endDate) {
+//       params = params.set('startDate', query.startDate.toISOString());
+//       params = params.set('endDate', query.endDate.toISOString());
+//     }
+//
+//     return this.http.get<Post[]>(`${this.baseUrl}/filter`, { params })
+//       .pipe(
+//         catchError((error: any) => {
+//           // Handle error here if needed
+//           console.error('An error occurred while filtering posts:', error);
+//           return throwError('Something went wrong');
+//         })
+//       );
+//   }
+//
+//
+//   createPostWithPhoto(postData: any, files: File[]): Observable<Post> {
+//     const formData = new FormData();
+//     formData.append('title', postData.title);
+//     formData.append('description', postData.description);
+//     formData.append('category', postData.category);
+//     formData.append('date', postData.date.toISOString());
+//
+//     for (let i = 0; i < files.length; i++) {
+//       formData.append('photos', files[i]);
+//     }
+//     console.log(formData);
+//
+//
+//     return this.http.post<Post>(this.baseUrl, formData);
+//   }
+//
+//   uploadMultiplePhotos(postId: string, files: File[]): Observable<Post> {
+//     const formData = new FormData();
+//     formData.append('postId', postId);
+//
+//     for (let i = 0; i < files.length; i++) {
+//       formData.append('photos', files[i]);
+//     }
+//
+//     return this.http.post<Post>(`${this.baseUrl}/${postId}/upload_photos`, formData);
+//   }
+// }
+
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Post } from '../interface/post.interface';
 import { URL_FOR_PHOTO } from '../../config';
 
@@ -8,20 +151,13 @@ import { URL_FOR_PHOTO } from '../../config';
   providedIn: 'root'
 })
 export class PostService {
-
   baseUrl = 'http://localhost:8080/api/posts';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.baseUrl);
   }
-
-  // getPosts(page: number = 1, limit: number = 6): Observable<Post[]> {
-  //   const params = { page: String(page), limit: String(limit) };
-  //   return this.http.get<Post[]>(this.baseUrl, { params });
-  // }
-
 
   getPostById(id: string): Observable<Post> {
     const url = `${this.baseUrl}/${id}`;
@@ -49,33 +185,46 @@ export class PostService {
     return this.http.patch<Post>(`${this.baseUrl}/${id}`, post);
   }
 
-
   deletePost(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 
-  searchPosts(category: string): Observable<Post[]> {
-    const params = { category };
-    return this.http.get<Post[]>(`${this.baseUrl}/search/by`, { params });
-  }
+  filterPosts(query: any): Observable<Post[]> {
+    let params = new HttpParams();
 
-  searchPostsByTitleOrDescription(title: string, description: string): Observable<Post[]> {
-    const params = { title, description };
-    return this.http.get<Post[]>(`${this.baseUrl}/search/by`, { params });
-  }
+    if (query.title) {
+      params = params.set('title', query.title);
+    }
 
-  sortByCreationDate(sortOrder: string): Observable<Post[]> {
-    const params = new HttpParams().set('sortOrder', sortOrder);
-    return this.http.get<Post[]>(`${this.baseUrl}/sort/by_creation_date`, { params });
-  }
+    if (query.description) {
+      params = params.set('description', query.description);
+    }
 
-  sortByDateRangePicker(startDate: Date, endDate: Date): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.baseUrl}/sort/by_date_range_picker`, {
-      params: {
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString()
-      }
-    })
+    if (query.category) {
+      params = params.set('category', query.category);
+    }
+
+    if (query.sortOrder) {
+      params = params.set('sortOrder', query.sortOrder);
+    }
+
+    if (query.startDate && query.endDate) {
+      const startDate = new Date(query.startDate);
+      const endDate = new Date(query.endDate);
+
+      params = params.set('startDate', startDate.toISOString());
+      params = params.set('endDate', endDate.toISOString());
+    }
+
+
+    return this.http
+      .get<Post[]>(`${this.baseUrl}`, { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('An error occurred while filtering posts:', error);
+          return throwError('Something went wrong');
+        })
+      );
   }
 
   createPostWithPhoto(postData: any, files: File[]): Observable<Post> {
@@ -88,8 +237,6 @@ export class PostService {
     for (let i = 0; i < files.length; i++) {
       formData.append('photos', files[i]);
     }
-    console.log(formData);
-
 
     return this.http.post<Post>(this.baseUrl, formData);
   }
