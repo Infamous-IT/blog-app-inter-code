@@ -123,12 +123,9 @@ export class PostsComponent implements OnInit, OnDestroy {
 
       query.startDate = startDate.toISOString();
       query.endDate = endDate.toISOString();
-      console.log(query.startDate)
-      console.log(query.endDate)
 
       this.postService.filterPosts(query).subscribe(
         (posts) => {
-          console.log(posts)
           this.handleSearchResults(posts);
         },
         (error) => {
