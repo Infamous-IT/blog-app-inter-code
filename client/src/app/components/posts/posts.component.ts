@@ -154,6 +154,8 @@ export class PostsComponent implements OnInit, OnDestroy {
       queryParamsHandling: 'merge',
       queryParams: { category: null },
     });
+
+    this.performSearch('title', '');
   }
 
   @HostListener('window:scroll', [])
@@ -167,18 +169,20 @@ export class PostsComponent implements OnInit, OnDestroy {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  changeSortOrder(order: string) {
-    this.sortOrder = order;
-    // Perform sorting logic here
-  }
-
   sortPostsByCreationDate() {
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    this.filteredPosts.sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-      return this.sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-    });
+
+    const query: any = {
+      sortOrder: this.sortOrder
+    };
+
+    this.postService.filterPosts(query).subscribe(
+      (posts: Post[]) => {
+        this.filteredPosts = posts;
+      },
+      (error: any) => {
+        console.error('An error occurred while filtering posts:', error);
+      }
+    );
   }
 }
-
