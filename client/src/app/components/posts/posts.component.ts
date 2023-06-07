@@ -6,6 +6,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Post } from 'src/app/interface/post.interface';
 import { PostService } from '../../service/post.service';
 import { FilterService } from '../../service/filter.service';
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-posts',
@@ -23,6 +24,12 @@ export class PostsComponent implements OnInit, OnDestroy {
   searchSubscription: Subscription;
   showScrollToTopButton = false;
   sortOrder: string = 'asc';
+
+  // for paginator
+  pageNumber: number = 1;
+  pageSize: number = 6;
+  totalItems: number = 0;
+
 
   constructor(
     private postService: PostService,
@@ -70,8 +77,19 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.searchSubscription.unsubscribe();
   }
 
+  // getPostsByCategory(category: string) {
+  //   const query = { category };
+  //   return this.postService.filterPosts(query);
+  // }
+
+  // for paginator
   getPostsByCategory(category: string) {
-    const query = { category };
+    const query = {
+      category,
+      page: this.pageNumber.toString(),
+      perPage: this.pageSize.toString()
+    };
+
     return this.postService.filterPosts(query);
   }
 
@@ -84,6 +102,37 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.router.navigate(['post', postId]);
   }
 
+  // performSearch(searchBy: 'title' | 'description', value: string) {
+  //   const query: any = {};
+  //
+  //   if (searchBy === 'title') {
+  //     query.title = value;
+  //   } else if (searchBy === 'description') {
+  //     query.description = value;
+  //   }
+  //
+  //   if (value.trim() === '') {
+  //     this.getPostsByCategory(null).subscribe(
+  //       (posts) => {
+  //         this.handleSearchResults(posts);
+  //       },
+  //       (error) => {
+  //         console.error(error);
+  //       }
+  //     );
+  //   } else {
+  //     this.postService.filterPosts(query).subscribe(
+  //       (posts) => {
+  //         this.handleSearchResults(posts);
+  //       },
+  //       (error) => {
+  //         console.error(error);
+  //       }
+  //     );
+  //   }
+  // }
+
+  // For paginator
   performSearch(searchBy: 'title' | 'description', value: string) {
     const query: any = {};
 
@@ -103,7 +152,7 @@ export class PostsComponent implements OnInit, OnDestroy {
         }
       );
     } else {
-      this.postService.filterPosts(query).subscribe(
+      this.postService.filterPosts({ ...query, page: this.pageNumber.toString(), perPage: this.pageSize.toString() }).subscribe(
         (posts) => {
           this.handleSearchResults(posts);
         },
@@ -114,6 +163,28 @@ export class PostsComponent implements OnInit, OnDestroy {
     }
   }
 
+  // performDateRangeSearch() {
+  //   const startDate = this.range.get('start').value;
+  //   const endDate = this.range.get('end').value;
+  //
+  //   if (startDate && endDate) {
+  //     const query: any = {};
+  //
+  //     query.startDate = startDate.toISOString();
+  //     query.endDate = endDate.toISOString();
+  //
+  //     this.postService.filterPosts(query).subscribe(
+  //       (posts) => {
+  //         this.handleSearchResults(posts);
+  //       },
+  //       (error) => {
+  //         console.error(error);
+  //       }
+  //     );
+  //   }
+  // }
+
+  // For paginator
   performDateRangeSearch() {
     const startDate = this.range.get('start').value;
     const endDate = this.range.get('end').value;
@@ -124,7 +195,7 @@ export class PostsComponent implements OnInit, OnDestroy {
       query.startDate = startDate.toISOString();
       query.endDate = endDate.toISOString();
 
-      this.postService.filterPosts(query).subscribe(
+      this.postService.filterPosts({ ...query, page: this.pageNumber.toString(), perPage: this.pageSize.toString() }).subscribe(
         (posts) => {
           this.handleSearchResults(posts);
         },
@@ -135,6 +206,16 @@ export class PostsComponent implements OnInit, OnDestroy {
     }
   }
 
+  // handleSearchResults(posts: Post[]) {
+  //   this.filteredPosts = posts;
+  //   this.router.navigate([], {
+  //     relativeTo: this.route,
+  //     queryParamsHandling: 'merge',
+  //     queryParams: { category: null },
+  //   });
+  // }
+
+  //For paginator
   handleSearchResults(posts: Post[]) {
     this.filteredPosts = posts;
     this.router.navigate([], {
@@ -142,6 +223,28 @@ export class PostsComponent implements OnInit, OnDestroy {
       queryParamsHandling: 'merge',
       queryParams: { category: null },
     });
+
+    this.totalItems = posts.length;
+    this.pageNumber = 1;
+
+    const maxPageNumber = Math.ceil(this.totalItems / this.pageSize);
+    if (this.pageNumber > maxPageNumber) {
+      this.pageNumber = maxPageNumber;
+    }
+  }
+
+  // For paginator
+  onPageChange(event: PageEvent) {
+    this.pageNumber = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.getPostsByCategory(null).subscribe(
+      (posts) => {
+        this.handleSearchResults(posts);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   resetFilter() {

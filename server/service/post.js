@@ -12,13 +12,13 @@ import {
 } from '../repository/post.js';
 
 
-export const getAll = async () => {
-    return await getAllPosts();
-};
-
-// export const getAll = async (offset, limit) => {
-//     return await getAllPosts(offset, limit);
+// export const getAll = async () => {
+//     return await getAllPosts();
 // };
+
+export const getAll = async (offset, limit) => {
+    return await getAllPosts(offset, limit);
+};
 
 export const getPostTotalCount = async () => {
     return await getTotalCount();
@@ -58,6 +58,10 @@ export const removePostById = async (id) => {
 export const filterPosts = async (query) => {
     return await searchPosts(query);
 };
+
+// export const filterPosts = async (query, offset, limit) => {
+//     return await searchPosts(query, offset, limit);
+// };
 
 
 export const uploadMultiplePhoto = async (postId, files) => {

@@ -35,6 +35,13 @@
   </mat-card>
 </div>
 
+<mat-paginator
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[6, 12, 24, 48]"
+  [length]="totalItems"
+  (page)="onPageChange($event)"
+></mat-paginator>
+
 <div class="scroll_block">
   <button class="scroll-to-top" (click)="scrollToTop()" *ngIf="showScrollToTopButton">
     <span class="material-icons">arrow_upward</span>

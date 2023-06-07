@@ -1,13 +1,13 @@
 import Post from '../model/Post.js';
 
-export const getAllPosts = () => {
-    return Post.find();
-}
+// export const getAllPosts = () => {
+//     return Post.find();
+// }
 
 // for pagination
-// export const getAllPosts = (offset, limit) => {
-//     return Post.find().skip(offset).limit(limit);
-// }
+export const getAllPosts = (offset, limit) => {
+    return Post.find().skip(offset).limit(limit);
+}
 
 export const getTotalCount = () => {
     try {
@@ -35,7 +35,7 @@ export const removePost = (id) => {
     return Post.findByIdAndDelete(id);
 }
 
-export const searchPosts = (query) => {
+export const searchPosts = (query, offset, limit) => {
     const { title, description, category, sortOrder, startDate, endDate } = query;
     const aggregatePipeline = [];
 
@@ -80,6 +80,10 @@ export const searchPosts = (query) => {
             }
         });
     }
+
+    // For pagination
+    // aggregatePipeline.push({ $skip: offset });
+    // aggregatePipeline.push({ $limit: limit });
 
     return Post.aggregate(aggregatePipeline);
 };

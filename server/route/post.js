@@ -50,11 +50,19 @@ const upload = multer({
 router.get("/", async (req, res, next) => {
     try {
         const query = req.query;
+
+        // For pagination
+        const { page, perPage } = req.query;
+        const offset = (page - 1) * perPage;
+        const limit = parseInt(perPage);
+
         let posts;
 
         if (Object.keys(query).length === 0) {
-            posts = await getAll();
+            // posts = await getAll();
+            posts = await getAll(offset, limit);
         } else {
+            // posts = await filterPosts(query);
             posts = await filterPosts(query);
         }
 
