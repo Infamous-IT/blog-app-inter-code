@@ -1,0 +1,16 @@
+div button {
+  background-color: transparent;
+  border: none;
+  color: #97a8be;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+}
+
+div button:active {
+  color: #8d8f93;
+}
+
+.material-icons {
+  font-size: 34px;
+}

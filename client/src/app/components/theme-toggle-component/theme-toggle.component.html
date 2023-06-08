@@ -1,0 +1,6 @@
+<div>
+  <button (click)="toggleTheme()">
+    <i class="material-icons" *ngIf="themeService.currentTheme === 'light'">brightness_7</i>
+    <i class="material-icons" *ngIf="themeService.currentTheme === 'dark'">brightness_4</i>
+  </button>
+</div>
