@@ -57,10 +57,6 @@ mat-card-actions button:hover {
   cursor: pointer;
 }
 
-.card-view-detail:hover {
-  background-color: rgb(241, 241, 241);
-}
-
 .search-options {
   display: flex;
   flex-wrap: wrap;

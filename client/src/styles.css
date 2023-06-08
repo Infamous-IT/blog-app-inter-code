@@ -14,24 +14,28 @@ body {
   background-color: rgb(23,48,39);
 }
 
+[data-theme="dark"] .card-view-detail .card-category {
+  color: #f8f8f8;
+}
+
 [data-theme="dark"] .card-view-detail {
   background-color: rgb(38, 66, 55);
   color: white;
   box-shadow: 2px;
 }
 
-[data-theme="dark"] .card-view-detail .card-category {
-  color: #f8f8f8;
+[data-theme="light"] .card-view-detail:hover {
+  background-color: rgb(241, 241, 241);
 }
 
 [data-theme="dark"] .card-view-detail:hover {
   background-color: rgb(76, 124, 105);
-  color: rgb(38, 66, 55);
   box-shadow: 2px;
+  color: #fff;
 }
 
 [data-theme="dark"] .card-view-detail:hover .card-category {
-  color: rgb(38, 66, 55);
+  color: #fff;
 }
 
 [data-theme="dark"] mat-paginator {
