@@ -1,5 +1,5 @@
 <ng-container class="container">
-  <form [formGroup]="postForm" (ngSubmit)="savePost()">
+  <form class="form" [formGroup]="postForm" (ngSubmit)="savePost()">
     <div>
       <label for="title">Title:</label>
       <input type="text" id="title" formControlName="title" required (blur)="validateField('title')">

@@ -1,10 +1,11 @@
-nav {
+.nav-menu {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
     padding: 10px;
-    background-color: #ececec;
+  background-color: rgb(38, 66, 55);
+  color: white;
 }
 
 .logo img {
@@ -27,10 +28,20 @@ nav {
 .category-list li a {
   text-decoration: none;
   color: #fff;
-  background-color: #007bff;
+  background-color: #ffffff;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+.side-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.side-bar .toggle-theme {
+  padding-right: 16px;
 }
 
 .category-list li:hover {
@@ -44,8 +55,8 @@ nav {
 
 .create-button {
   text-decoration: none;
-  color: #fff;
-  background-color: #007bff;
+  color: #000;
+  background-color: rgb(253, 253, 253);
   padding: 10px 20px;
   border-radius: 5px;
   border: none;
@@ -53,8 +64,8 @@ nav {
 }
 
 .create-button:hover {
-  color: #007bff;
-  background-color: rgb(212, 231, 251);
+  color: #fff;
+  background-color: rgb(69, 88, 101);
 }
 
 .search-button {
@@ -74,7 +85,7 @@ nav {
 
 .input-search-class {
   margin: 5px;
-  border-color: #007bff;
+  border-color: #fff;
 }
 
 li {
@@ -84,5 +95,5 @@ li {
 
 li.active {
   font-weight: bold;
-  border-bottom: 2px solid blue;
+  border-bottom: 2px solid #000fff;
 }

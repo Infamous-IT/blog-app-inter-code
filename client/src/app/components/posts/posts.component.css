@@ -38,7 +38,7 @@ mat-card-content {
   margin-bottom: 30px;
 }
 
-mat-card-subtitle {
+.card-category {
   color: rgb(0, 0, 0);
 }
 
@@ -72,36 +72,61 @@ mat-card-actions button:hover {
 .input-search-class {
   margin-right: 10px;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #f3f3f3;
+  background-color: rgb(37,66,55);
+  color: #fff;
   border-radius: 4px;
   font-size: 14px;
   width: 200px;
 }
 
+.input-search-class::placeholder {
+  color: #b9b9b9;
+}
+
 .mat-form-field {
   margin-right: 10px;
-  background-color: rgb(255, 0, 0);
+  background-color: rgb(44, 80, 67);
 }
 
 .mat-datepicker-toggle {
   color: #f1dede;
 }
 
-.filter-reset {
+.filter-reset .filter-reset-btn {
+  background-color: rgb(44, 80, 67);
   margin-bottom: 25px;
+}
+
+.filter-reset .filter-reset-btn:hover {
+  color: #fff;
+  background-color: rgb(87, 133, 116);
+}
+
+.search-options .sort-button {
+  background-color: rgb(44, 80, 67);
+  align-items: center;
+  margin-left: 10px;
+  color: #fff;
+}
+
+.search-options .sort-button:hover {
+  color: #fff;
+  background-color: rgb(87, 133, 116);
 }
 
 .scroll-to-top {
   position: fixed;
-  background-color: rgb(13, 100, 231);
-  color: white;
+  background-color: rgb(231, 231, 231);
+  color: rgb(33, 59, 48);
   border: none;
+  cursor: pointer;
   bottom: 20px;
   right: 20px;
   z-index: 1;
 }
 
 .scroll-to-top:hover {
-  background-color: rgb(188, 215, 255);
-  color: rgb(13, 100, 231);
+  background-color: rgb(33, 59, 48);
+  color: rgb(255, 255, 255);
 }

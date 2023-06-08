@@ -15,7 +15,7 @@
 
 <div class="filter-reset">
   <mat-card-actions>
-    <button mat-button (click)="resetFilter()">Filter reset</button>
+    <button mat-button class="filter-reset-btn" (click)="resetFilter()">Filter reset</button>
   </mat-card-actions>
 </div>
 
@@ -24,7 +24,7 @@
     <mat-card-header>
       <div mat-card-avatar class="post-header-image"></div>
       <mat-card-title>{{ post.title }}</mat-card-title>
-      <mat-card-subtitle>{{ post.category }}</mat-card-subtitle>
+      <mat-card-subtitle class="card-category">{{ post.category }}</mat-card-subtitle>
     </mat-card-header>
     <div class="photos" *ngFor="let photo of post.photos">
       <img mat-card-image [src]="getPhotoSrc(photo)" alt="photos">

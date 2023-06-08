@@ -1,4 +1,85 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+[data-theme="light"] {
+  background-color: #ffffff;
+}
+
+[data-theme="dark"] {
+  background-color: rgb(23,48,39);
+}
+
+[data-theme="dark"] .card-view-detail {
+  background-color: rgb(38, 66, 55);
+  color: white;
+  box-shadow: 2px;
+}
+
+[data-theme="dark"] .card-view-detail .card-category {
+  color: #f8f8f8;
+}
+
+[data-theme="dark"] .card-view-detail:hover {
+  background-color: rgb(76, 124, 105);
+  color: rgb(38, 66, 55);
+  box-shadow: 2px;
+}
+
+[data-theme="dark"] .card-view-detail:hover .card-category {
+  color: rgb(38, 66, 55);
+}
+
+[data-theme="dark"] mat-paginator {
+  background-color: rgb(38, 66, 55);
+  color: white;
+}
+
+[data-theme="dark"] .filter-reset .filter-reset-btn {
+  color: #f8f8f8;
+  background-color: rgb(253, 253, 253);
+}
+
+[data-theme="dark"] .filter-reset .filter-reset-btn:hover {
+  color: #fff;
+  background-color: rgb(69, 88, 101);
+}
+
+[data-theme="dark"] .category {
+  color: #f8f8f8;
+}
+
+[data-theme="dark"] h1 {
+  color: #f8f8f8;
+}
+
+[data-theme="dark"] h3 {
+  color: #f8f8f8;
+}
+
+[data-theme="dark"] .date {
+  color: #f8f8f8;
+}
+
+[data-theme="dark"] .btn .edit-post {
+  color: #050505;
+  background-color: rgb(253, 253, 253);
+}
+
+[data-theme="dark"] .btn .edit-post:hover {
+  color: #fff;
+  background-color: rgb(69, 88, 101);
+}
+
+[data-theme="dark"] .form{
+  background-color: rgb(23,48,39);
+  color: #fff;
+}
+
+/*[data-theme="dark"] .post-list .card-category {*/
+/*  color: #f8f8f8;*/
+/*}*/

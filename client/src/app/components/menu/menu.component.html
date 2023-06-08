@@ -1,4 +1,4 @@
-<nav>
+<nav class="nav-menu">
   <span (click)="backToHomePage()" class="logo">
     <img src="../../../assets/social.png" alt="logo">
   </span>
@@ -9,6 +9,11 @@
     <li (click)="filterPostsByCategory('Home')"[class.active]="category === 'Home'" data-category="Home">Home</li>
     <li (click)="filterPostsByCategory('Hobbies')" [class.active]="category === 'Hobbies'" data-category="Hobbies">Hobbies</li>
   </ul>
-  <button (click)="createNewPost()" class="create-button">Create new post</button>
+  <div class="side-bar">
+    <div class="toggle-theme">
+      <app-theme-toggle></app-theme-toggle>
+    </div>
+    <button (click)="createNewPost()" class="create-button">Create new post</button>
+  </div>
 </nav>
 

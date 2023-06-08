@@ -29,6 +29,7 @@ import { ProgressComponent } from './components/progress/progress.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { ThemeToggleComponent } from './components/theme-toggle-component/theme-toggle.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FilterComponent } from './components/filter/filter.component';
     ProgressComponent,
     CommentListComponent,
     FooterComponent,
-    FilterComponent
+    FilterComponent,
+    ThemeToggleComponent
   ],
   imports: [
     BrowserModule,
