@@ -84,6 +84,23 @@ body {
   color: #fff;
 }
 
-/*[data-theme="dark"] .post-list .card-category {*/
-/*  color: #f8f8f8;*/
-/*}*/
+[data-theme="dark"] .comments-container mat-card-content {
+  background-color: rgb(42, 54, 53);
+  color: #fff;
+}
+
+[data-theme="dark"] .content {
+  background-color: rgb(42, 54, 53);
+  color: #fff;
+  opacity: 75%;
+}
+
+[data-theme="light"] .content {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+}
+
+[data-theme="dark"] .add-comment textarea{
+  background-color: rgb(42, 54, 53);
+  color: #fff;
+}
