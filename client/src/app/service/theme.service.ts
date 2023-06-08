@@ -15,12 +15,6 @@ export class ThemeService {
     }
   }
 
-  toggleTheme(): void {
-    this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-    this.setTheme(this.currentTheme);
-    localStorage.setItem(this.themeKey, this.currentTheme);
-  }
-
   public setTheme(theme: string): void {
     document.documentElement.setAttribute('data-theme', theme);
   }
