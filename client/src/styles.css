@@ -104,3 +104,9 @@ body {
   background-color: rgb(42, 54, 53);
   color: #fff;
 }
+
+[data-theme="dark"] .form input[type="text"],
+[data-theme="dark"] .form textarea {
+  background-color: rgb(42, 54, 53);
+  color: #fff;
+}

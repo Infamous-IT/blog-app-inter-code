@@ -12,13 +12,13 @@ import {
 } from '../repository/post.js';
 
 
-// export const getAll = async () => {
-//     return await getAllPosts();
-// };
-
-export const getAll = async (offset, limit) => {
-    return await getAllPosts(offset, limit);
+export const getAll = async () => {
+    return await getAllPosts();
 };
+//
+// export const getAll = async (offset, limit) => {
+//     return await getAllPosts(offset, limit);
+// };
 
 export const getPostTotalCount = async () => {
     return await getTotalCount();

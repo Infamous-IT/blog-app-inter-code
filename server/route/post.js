@@ -18,7 +18,7 @@ const upload = multer({
         destination: function (req, file, cb) {
             const isMacBook = true;
 
-            if (!isMacBook) {
+            if (isMacBook) {
                 cb(null, "/Users/nazar_hlukhaniuk/documents/projects/blog-app-inter-code/server/assets/images");
             } else {
                 cb(null, "E:/DevProj/blog-app-inter-code/server/assets/images");
@@ -52,17 +52,16 @@ router.get("/", async (req, res, next) => {
         const query = req.query;
 
         // For pagination
-        const { page, perPage } = req.query;
-        const offset = (page - 1) * perPage;
-        const limit = parseInt(perPage);
+        // const { page, perPage } = req.query;
+        // const offset = (page - 1) * perPage;
+        // const limit = parseInt(perPage);
 
         let posts;
 
         if (Object.keys(query).length === 0) {
-            // posts = await getAll();
-            posts = await getAll(offset, limit);
+            posts = await getAll();
+            // posts = await getAll(offset, limit);
         } else {
-            // posts = await filterPosts(query);
             posts = await filterPosts(query);
         }
 

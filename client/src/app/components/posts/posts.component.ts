@@ -132,6 +132,8 @@ export class PostsComponent implements OnInit, OnDestroy {
   //   }
   // }
 
+  listLength: number;
+
   // For paginator
   performSearch(searchBy: 'title' | 'description', value: string) {
     const query: any = {};
@@ -217,7 +219,10 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   //For paginator
   handleSearchResults(posts: Post[]) {
-    this.filteredPosts = posts;
+    // this.filteredPosts = posts;
+    // console.log(this.filteredPosts)
+    // this.listLength = posts.length
+    this.filteredPosts = posts.slice(((this.pageNumber-1)*this.pageSize), this.pageNumber*this.pageSize)
     this.router.navigate([], {
       relativeTo: this.route,
       queryParamsHandling: 'merge',
