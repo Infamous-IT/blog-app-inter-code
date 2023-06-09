@@ -220,9 +220,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   //For paginator
   handleSearchResults(posts: Post[]) {
     // this.filteredPosts = posts;
-    // console.log(this.filteredPosts)
-    // this.listLength = posts.length
-    this.filteredPosts = posts.slice(((this.pageNumber-1)*this.pageSize), this.pageNumber*this.pageSize)
+    this.filteredPosts = posts.slice(((this.pageNumber-1) * this.pageSize), this.pageNumber * this.pageSize)
     this.router.navigate([], {
       relativeTo: this.route,
       queryParamsHandling: 'merge',
